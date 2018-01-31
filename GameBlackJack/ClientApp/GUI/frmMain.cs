@@ -106,16 +106,6 @@ namespace ClientApp
 
                         if (IsSuccess)
                             StartClient();
-
-                        //if (_IsVailable)
-                        //    txtIPClient.SetError(eClientAddress, string.Empty);
-                        //else
-                        //    txtIPClient.SetError(eClientAddress, "Client is not available");
-
-                        //if (_IsListening)
-                        //    txtIPServer.SetError(eServerAddress, string.Empty);
-                        //else
-                        //    txtIPServer.SetError(eServerAddress, "Server is not available");
                     }));
 
                 });
@@ -135,7 +125,7 @@ namespace ClientApp
                     timer.Interval = 5000;
                     timer.Stop();
 
-                    if ((bool)Invoke(new Func<bool>(() => { return ValidAddress(); })))
+                    if (ValidAddress())
                         action1();
                     else
                         timer.Start();

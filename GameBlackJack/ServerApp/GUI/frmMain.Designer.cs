@@ -124,7 +124,7 @@
             this.Controls.Add(this.mnMain);
             this.MainMenuStrip = this.mnMain;
             this.Name = "frmMain";
-            this.Text = "Blackjack";
+            this.Text = "Blackjack - Server App";
             this.mnMain.ResumeLayout(false);
             this.mnMain.PerformLayout();
             this.tpMain.ResumeLayout(false);

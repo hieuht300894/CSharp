@@ -249,7 +249,7 @@
             this.lbMessage.TabIndex = 17;
             this.lbMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // frmConfig
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -259,7 +259,7 @@
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Blackjack App";
+            this.Text = "Blackjack - Client App";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

@@ -64,7 +64,7 @@
             // picLogo
             // 
             this.picLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picLogo.Image = global::GameBlackJack.Properties.Resources.no_image_icon;
+           
             this.picLogo.Location = new System.Drawing.Point(3, 63);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(65, 54);

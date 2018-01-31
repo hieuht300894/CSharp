@@ -135,5 +135,15 @@
   <ItemGroup>
     <None Include="Resources\no-image-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClientApp\ClientApp.csproj">
+      <Project>{bec406e3-9c6a-4afe-b695-9cefa6e01048}</Project>
+      <Name>ClientApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerApp\ServerApp.csproj">
+      <Project>{6e37962d-a7da-4a11-9a96-6c04ddf28203}</Project>
+      <Name>ServerApp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
