@@ -18,6 +18,12 @@ namespace GameBlackJack.GUI
 
             Load -= FrmBase_Load;
             Load += FrmBase_Load;
+            FormClosing -= FrmBase_FormClosing;
+            FormClosing += FrmBase_FormClosing;
+        }
+
+        protected virtual void FrmBase_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
 
         protected virtual void FrmBase_Load(object sender, EventArgs e)
