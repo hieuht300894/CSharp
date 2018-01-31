@@ -8,6 +8,9 @@ namespace GameBlackJack
 {
     public partial class frmMain : frmBase
     {
+        ServerApp.frmMain frmServer = new ServerApp.frmMain();
+        ClientApp.frmMain frmClient = new ClientApp.frmMain();
+
         public frmMain()
         {
             InitializeComponent();
@@ -26,17 +29,11 @@ namespace GameBlackJack
 
         void StartServer()
         {
-            using (ServerApp.frmMain frm = new ServerApp.frmMain())
-            {
-                frm.Show();
-            }
+            frmServer.Show();
         }
         void StartClient()
         {
-            using (ClientApp.frmMain frm = new ClientApp.frmMain())
-            {
-                frm.Show();
-            }
+            frmClient.Show();
         }
     }
 }

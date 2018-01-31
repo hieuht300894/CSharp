@@ -55,7 +55,7 @@ namespace GameBlackJack
         public static Regex regexAddress { get { return new Regex(@"(?<IP>(\d{3}|\d{2}|\d{1}).(\d{3}|\d{2}|\d{1}).(\d{3}|\d{2}|\d{1}).(\d{3}|\d{2}|\d{1})):(?<Port>(\d{5}|\d{4}))"); } }
         public static Regex regexCommand { get { return new Regex($@"([[](?<Key>\w+)[]])([=])([[]]|([[](?<Value>[a-zA-z0-9 -:.\\\/]+)[]]))"); } }
         public static string DirConfig { get { return "Configs"; } }
-        public static string FileConfig { get { return "Config"; } }
+        public static string FileConfig { get { return "GameBlackJackConfig"; } }
         public static string ExtConfig { get { return "xml"; } }
         public static string DirLog { get { return "Logs"; } }
         public static string FileLog { get { return DateTime.Now.ToString("yyyyMMdd"); } }
