@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GameBlackJack.BUS
+namespace GameBlackJack
 {
     /// <summary>
     /// Create a StatusChanged event base EventArgs
@@ -42,7 +41,6 @@ namespace GameBlackJack.BUS
         CancellationTokenSource cancellation;
         Task taskClient;
         public static event StatusChangedEventHandler StatusChanged;
-        static StatusChangedEventArgs e;
 
         public clsServer(IPAddress _ipServer, int _port)
         {

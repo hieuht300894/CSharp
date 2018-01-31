@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GameBlackJack.BUS
+namespace GameBlackJack
 {
     public static class clsGeneral
     {

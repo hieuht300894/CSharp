@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBlackJack", "GameBlackJ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "ClientApp\ClientApp.csproj", "{BEC406E3-9C6A-4AFE-B695-9CEFA6E01048}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerApp", "ServerApp\ServerApp.csproj", "{6E37962D-A7DA-4A11-9A96-6C04DDF28203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BEC406E3-9C6A-4AFE-B695-9CEFA6E01048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEC406E3-9C6A-4AFE-B695-9CEFA6E01048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEC406E3-9C6A-4AFE-B695-9CEFA6E01048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E37962D-A7DA-4A11-9A96-6C04DDF28203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E37962D-A7DA-4A11-9A96-6C04DDF28203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E37962D-A7DA-4A11-9A96-6C04DDF28203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E37962D-A7DA-4A11-9A96-6C04DDF28203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

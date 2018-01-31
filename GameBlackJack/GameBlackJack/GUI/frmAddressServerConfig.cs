@@ -1,10 +1,10 @@
-﻿using GameBlackJack.BUS;
+﻿using GameBlackJack;
 using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
 
-namespace GameBlackJack.GUI
+namespace GameBlackJack
 {
     public partial class frmAddressServerConfig : frmBase
     {

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace GameBlackJack.BUS
+namespace GameBlackJack
 {
     public static class clsExtension
     {

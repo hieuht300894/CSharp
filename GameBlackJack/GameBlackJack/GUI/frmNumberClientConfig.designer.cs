@@ -1,4 +1,4 @@
-﻿namespace GameBlackJack.GUI
+﻿namespace GameBlackJack
 {
     partial class frmNumberClientConfig
     {

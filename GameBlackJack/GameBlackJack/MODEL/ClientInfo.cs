@@ -1,10 +1,7 @@
-﻿using GameBlackJack.GUI;
-using GameBlackJack.MODEL;
-using HostKVM.UserControls;
+﻿using GameBlackJack.MODEL;
 using System.Net;
-using System.Windows.Forms;
 
-namespace GameBlackJack.BUS
+namespace GameBlackJack
 {
     public class ClientInfo
     {

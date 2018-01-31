@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GameBlackJack.GUI
+namespace GameBlackJack
 {
     public partial class frmBase : Form
     {

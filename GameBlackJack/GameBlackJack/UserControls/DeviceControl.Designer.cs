@@ -1,4 +1,4 @@
-﻿namespace HostKVM.UserControls
+﻿namespace GameBlackJack
 {
     partial class DeviceControl
     {

@@ -1,4 +1,4 @@
-﻿using GameBlackJack.BUS;
+﻿using GameBlackJack;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GameBlackJack.GUI
+namespace GameBlackJack
 {
     public partial class frmAddressClientConfig : frmBase
     {

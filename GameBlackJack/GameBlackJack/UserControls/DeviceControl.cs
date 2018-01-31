@@ -1,9 +1,9 @@
-﻿using GameBlackJack.BUS;
+﻿using GameBlackJack;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace HostKVM.UserControls
+namespace GameBlackJack
 {
     public partial class DeviceControl : UserControl
     {
