@@ -117,7 +117,7 @@ namespace GameBlackJack.GUI
             client.Client.AddressClient = client.AddressClient;
             client.ClientHost = client.AddressClient.ParseAddress();
 
-            client.Control.SetInfo(ClientName: client.ClientName, Address: client.AddressClient, Status: client.ConnectionStatus);
+     
 
             ReloadData?.Invoke(client);
             SaveLog();

@@ -49,7 +49,8 @@ namespace GameBlackJack.BUS
             ON = 33,
             OFF = 34,
             PROCESSING = 35,
-            NO_CLIENT_RESULT = 36
+            NO_CLIENT_RESULT = 36,
+            SERVER = 37
         }
         public static Regex regexAddress { get { return new Regex(@"(?<IP>(\d{3}|\d{2}|\d{1}).(\d{3}|\d{2}|\d{1}).(\d{3}|\d{2}|\d{1}).(\d{3}|\d{2}|\d{1})):(?<Port>(\d{5}|\d{4}))"); } }
         public static Regex regexCommand { get { return new Regex($@"([[](?<Key>\w+)[]])([=])([[]]|([[](?<Value>[a-zA-z0-9 -:.\\\/]+)[]]))"); } }

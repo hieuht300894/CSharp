@@ -18,6 +18,7 @@ namespace GameBlackJack.GUI
         #region Variables
         delegate void UpdateStatusCallback(string address, string msg);
         UpdateStatusCallback updateStatus;
+        BankerInfo bankerInfo = new BankerInfo();
         List<ClientInfo> lstClients = new List<ClientInfo>();
         List<ClientInfo> lstPlayings = new List<ClientInfo>();
         clsServer mainServer;
@@ -32,7 +33,7 @@ namespace GameBlackJack.GUI
 
         #region Methods
 
-        #region Init client
+        #region Init Control
         void LoadConfig()
         {
             Config config = clsIO.LoadFile<Config>(clsGeneral.DirConfig, clsGeneral.FileConfig, clsGeneral.ExtConfig);
@@ -121,11 +122,20 @@ namespace GameBlackJack.GUI
             if (clsGeneral.Config.TotalNumber == 0) return;
 
             int avrWidth = tpClient.Size.Width / clsGeneral.Config.ColumnNumber;
+            int avrHeight = tpClient.Size.Height / clsGeneral.Config.RowNumber;
 
             lstClients.ForEach(x =>
             {
                 x.Control.Width = avrWidth - x.Control.Margin.Left - x.Control.Margin.Right;
+                x.Control.Height = avrHeight - x.Control.Margin.Top - x.Control.Margin.Bottom;
             });
+        }
+        void ResizeBanker()
+        {
+            int avrWidth = tpBanker.Size.Width;
+            int avrHeight = tpBanker.Size.Height;
+            bankerInfo.Control.Width = avrWidth - bankerInfo.Control.Margin.Left - bankerInfo.Control.Margin.Right;
+            bankerInfo.Control.Height = avrHeight - bankerInfo.Control.Margin.Top - bankerInfo.Control.Margin.Bottom;
         }
         void InitClient()
         {
@@ -156,10 +166,10 @@ namespace GameBlackJack.GUI
                 for (j = 0; j < clsGeneral.Config.ColumnNumber; j++)
                 {
                     DeviceControl dc = new DeviceControl();
-                    dc.Name = string.Format("{0}{1}{2}", "Client", i, j);
+                    dc.Name = string.Format("{0}{1}{2}", clsGeneral.fKey.CLIENT.ToString(), i, j);
 
                     Client client = clsGeneral.Config.Clients.FirstOrDefault(x => x.ControlName.Equals(dc.Name));
-                    ClientInfo cInfo = new ClientInfo() { Control = dc, ClientName = string.Format("{0} {1}{2}", "Client", i + 1, j + 1), ControlName = string.Format("{0}{1}{2}", "Client", i, j), RowID = i + 1, ColumnID = j + 1 };
+                    ClientInfo cInfo = new ClientInfo() { Control = dc, ClientName = string.Format("{0} {1}{2}", clsGeneral.fKey.CLIENT.ToString(), i + 1, j + 1), ControlName = string.Format("{0}{1}{2}", clsGeneral.fKey.CLIENT.ToString(), i, j), RowID = i + 1, ColumnID = j + 1 };
                     lstClients.Add(cInfo);
                     if (client == null)
                         clsGeneral.Config.Clients.Add(client = new Client() { ClientName = cInfo.ClientName, ControlName = cInfo.ControlName, RowID = cInfo.RowID, ColumnID = cInfo.ColumnID });
@@ -171,24 +181,36 @@ namespace GameBlackJack.GUI
 
                     LoadClientInfo(cInfo);
 
-                    dc.txtFSN.DataBindings.Clear();
-                    dc.txtFSN.DataBindings.Add("Text", cInfo, "FSN", true, DataSourceUpdateMode.OnPropertyChanged);
-
-                    dc.txtIMEI.DataBindings.Clear();
-                    dc.txtIMEI.DataBindings.Add("Text", cInfo, "IMEI", true, DataSourceUpdateMode.OnPropertyChanged);
-
-                    dc.btnConfig.Click -= BtnConfig_Click;
-                    dc.btnConfig.Click += BtnConfig_Click;
-
-                    dc.txtFSN.TextChanged -= TxtMain_TextChanged;
-                    dc.txtFSN.TextChanged += TxtMain_TextChanged;
-
-                    dc.txtIMEI.TextChanged -= TxtMain_TextChanged;
-                    dc.txtIMEI.TextChanged += TxtMain_TextChanged;
-
                     tpClient.Controls.Add(dc, j, i);
                 }
             }
+        }
+        void InitBanker()
+        {
+            int i = 0;
+            int j = 0;
+
+            tpBanker.Controls.Clear();
+            tpBanker.ColumnStyles.Clear();
+            tpBanker.RowStyles.Clear();
+
+            if (clsGeneral.AddressServer == null)
+                return;
+
+            DeviceControl dc = new DeviceControl();
+            dc.Name = string.Format("{0}{1}{2}", clsGeneral.fKey.SERVER.ToString(), i, j);
+
+            Banker banker = clsGeneral.Config.Banker;
+            bankerInfo = new BankerInfo() { Control = dc, ClientName = string.Format("{0} {1}{2}", clsGeneral.fKey.SERVER.ToString(), i + 1, j + 1), ControlName = string.Format("{0}{1}{2}", clsGeneral.fKey.SERVER.ToString(), i, j), RowID = i + 1, ColumnID = j + 1 };
+            if (banker == null)
+                clsGeneral.Config.Banker = new Banker() { ClientName = bankerInfo.ClientName, ControlName = bankerInfo.ControlName, RowID = bankerInfo.RowID, ColumnID = bankerInfo.ColumnID };
+
+            bankerInfo.Banker = banker;
+            bankerInfo.Banker.IPClient = banker.IPClient;
+            bankerInfo.Banker.PortClient = banker.PortClient;
+            bankerInfo.Banker.AddressClient = banker.AddressClient;
+
+            tpBanker.Controls.Add(dc, j, i);
         }
         void LoadClientInfo(ClientInfo cInfo)
         {
@@ -197,10 +219,6 @@ namespace GameBlackJack.GUI
             cInfo.PortClient = cInfo.Client.PortClient;
             cInfo.AddressClient = cInfo.Client.AddressClient;
             cInfo.ClientHost = cInfo.AddressClient.ParseAddress();
-            cInfo.Control.SetInfo(ClientName: cInfo.ClientName, Address: cInfo.AddressClient, Status: cInfo.ConnectionStatus);
-            cInfo.Control.SetStatus(Status: cInfo.ClientStatus);
-            cInfo.Control.SetFSN(FSN: cInfo.FSN);
-            cInfo.Control.SetIMEI(IMEI: cInfo.IMEI);
             ReloadConnection(cInfo);
         }
         #endregion
@@ -271,7 +289,7 @@ namespace GameBlackJack.GUI
                         {
                             client.ClientStatus = clsGeneral.fKey.FINISHED;
                             client.ClientMessage = clsGeneral.fKey.NO_CLIENT_RESULT;
-                            this.InvokeExt(new Action(() => { client.Control.SetStatus(FSN: client.FSN, Status: client.ClientMessage); }));
+
                             ResetStatus();
                         }
 
@@ -279,14 +297,14 @@ namespace GameBlackJack.GUI
                         client.ConnectionMessage = clsGeneral.fKey.EMPTY;
                     }
 
-                    this.InvokeExt(new Action(() => { client.Control.SetInfo(ClientName: client.ClientName, Address: client.AddressClient, Status: client.ConnectionStatus); }));
+
                 }
                 else if (key.Equals(clsGeneral.fKey.USERNAME.ToString()))
                 {
                     client.ClientName = value;
                     client.Client.ClientName = value;
                     client.ConnectionMessage = clsGeneral.fKey.EMPTY;
-                    this.InvokeExt(new Action(() => { client.Control.SetInfo(ClientName: value, Address: client.AddressClient, Status: client.ConnectionStatus); }));
+
                 }
                 else if (key.Equals(clsGeneral.fKey.BEGIN.ToString()))
                 {
@@ -303,7 +321,7 @@ namespace GameBlackJack.GUI
                         client.ClientMessage = clsGeneral.fKey.PASS;
                     if (value.Equals(clsGeneral.fKey.FAILED.ToString()))
                         client.ClientMessage = clsGeneral.fKey.FAILED;
-                    this.InvokeExt(new Action(() => { client.Control.SetStatus(FSN: client.FSN, Status: client.ClientMessage); }));
+
 
                     ResetStatus();
                 }
@@ -326,26 +344,6 @@ namespace GameBlackJack.GUI
             if (info.ConnectionStatus != clsGeneral.fKey.ON)
                 chk = false;
 
-            if (info.FSN.IsEmpty())
-            {
-                info.Control.txtFSN.SetError(info.errorFSN, "FSN isn't valid");
-                chk = false;
-            }
-            else
-            {
-                info.Control.txtFSN.SetError(info.errorFSN, "");
-            }
-
-            if (info.IMEI.IsEmpty())
-            {
-                info.Control.txtIMEI.SetError(info.errorIMEI, "IMEI isn't valid");
-                chk = false;
-            }
-            else
-            {
-                info.Control.txtIMEI.SetError(info.errorIMEI, "");
-            }
-
             return chk;
         }
         void SaveConfig()
@@ -361,9 +359,7 @@ namespace GameBlackJack.GUI
                     //btnStart.Enabled = true;
                     lstPlayings.ForEach(x =>
                     {
-                        x.Control.txtFSN.Enabled = true;
-                        x.Control.txtIMEI.Enabled = true;
-                        x.Control.btnConfig.Enabled = true;
+
                     });
                 }));
             }
@@ -383,14 +379,9 @@ namespace GameBlackJack.GUI
                         //btnStart.Enabled = false;
                         x.ClientStatus = clsGeneral.fKey.PROCESSING;
                         x.ClientMessage = clsGeneral.fKey.PROCESSING;
-                        x.Control.txtFSN.Enabled = false;
-                        x.Control.txtIMEI.Enabled = false;
-                        x.Control.btnConfig.Enabled = false;
-                        x.Control.SetStatus(Status: clsGeneral.fKey.PROCESSING);
+
                     }));
 
-                    SendCommand(x, clsExtension.ConvertCommand(clsGeneral.fKey.FSN.ToString(), x.FSN));
-                    SendCommand(x, clsExtension.ConvertCommand(clsGeneral.fKey.IMEI.ToString(), x.IMEI));
                     SendCommand(x, clsExtension.ConvertCommand(clsGeneral.fKey.BEGIN.ToString(), clsGeneral.fKey.EMPTY.ToString()));
                 }
             });
@@ -399,10 +390,10 @@ namespace GameBlackJack.GUI
         {
             //btnStart.Click -= BtnStart_Click;
             //btnStart.Click += BtnStart_Click;
-            mnNumberOfClients.Click -= MnNumberClient_Click;
-            mnNumberOfClients.Click += MnNumberClient_Click;
-            mnServerConfiguation.Click -= MnAddressServer_Click;
-            mnServerConfiguation.Click += MnAddressServer_Click;
+            mnClientConfig.Click -= MnNumberClient_Click;
+            mnClientConfig.Click += MnNumberClient_Click;
+            mnServerConfig.Click -= MnAddressServer_Click;
+            mnServerConfig.Click += MnAddressServer_Click;
             SizeChanged -= FrmMain_SizeChanged;
             SizeChanged += FrmMain_SizeChanged;
         }
@@ -416,6 +407,8 @@ namespace GameBlackJack.GUI
             base.FrmBase_Load(sender, e);
 
             LoadConfig();
+            InitBanker();
+            ResizeBanker();
             StartServer();
             CustomForm();
         }
@@ -465,7 +458,7 @@ namespace GameBlackJack.GUI
             {
                 client.ClientStatus = clsGeneral.fKey.WAITING;
                 client.ClientMessage = clsGeneral.fKey.EMPTY;
-                client.Control.SetStatus(Status: client.ClientStatus);
+
             }
         }
         void mainServer_StatusChanged(object sender, StatusChangedEventArgs e)
@@ -520,6 +513,7 @@ namespace GameBlackJack.GUI
         void FrmMain_SizeChanged(object sender, EventArgs e)
         {
             ResizeClient();
+            ResizeBanker();
         }
         #endregion
     }
