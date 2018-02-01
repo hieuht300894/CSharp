@@ -272,14 +272,22 @@ namespace ServerApp
                         client.ConnectionStatus = clsGeneral.fKey.ON;
                         client.ConnectionMessage = clsGeneral.fKey.EMPTY;
 
-                        this.InvokeExt(() => { client.Control.Visible = true; });
+                        this.InvokeExt(() =>
+                        {
+                            client.Control.lbClientName.Text = client.AddressClient;
+                            client.Control.Visible = true;
+                        });
                     }
                     if (value.Equals(clsGeneral.fKey.DENY.ToString()))
                     {
                         client.ConnectionStatus = clsGeneral.fKey.OFF;
                         client.ConnectionMessage = clsGeneral.fKey.EMPTY;
 
-                        this.InvokeExt(() => { client.Control.Visible = false; });
+                        this.InvokeExt(() =>
+                        {
+                            client.Control.lbClientName.Text = client.AddressClient;
+                            client.Control.Visible = false;
+                        });
                     }
                 }
                 else if (key.Equals(clsGeneral.fKey.USERNAME.ToString()))
