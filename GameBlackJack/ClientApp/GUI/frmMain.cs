@@ -309,7 +309,8 @@ namespace ClientApp
                 closeConnection = new CloseConnectionCallback(StopClient);
 
                 // Start a new TCP connections to the chat server
-                tcpClient = new TcpClient(clsGeneral.ClientHost);
+                //tcpClient = new TcpClient(clsGeneral.ClientHost);
+                tcpClient = new TcpClient();
                 tcpClient.Connect(clsGeneral.ServerHost);
 
                 // Start the thread for receiving messages and further communication
