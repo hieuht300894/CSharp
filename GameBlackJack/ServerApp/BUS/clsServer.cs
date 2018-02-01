@@ -70,6 +70,19 @@ namespace ServerApp
                 connection.CloseConnection();
 
                 Connections.Remove(address);
+
+                ClientInfo client = clsGeneral.Clients.FirstOrDefault(x => x.AddressClient.Equals(address));
+                if (client != null)
+                {
+                    client.IPClient = string.Empty;
+                    client.PortClient = 0;
+                    client.AddressClient = string.Empty;
+                    client.ClientHost = null;
+
+                    client.Client.IPClient = string.Empty;
+                    client.Client.PortClient = 0;
+                    client.Client.AddressClient = null;
+                }
             }
         }
 
@@ -255,10 +268,29 @@ namespace ServerApp
                 {
                     if (!clsServer.Connections.Any(x => x.Key.Equals(address)))
                     {
-                        clsServer.Connections.Add(address, this);
-                        clsServer.Response(address, clsExtension.ConvertCommand(clsGeneral.fKey.REGISTER.ToString(), clsGeneral.fKey.ACCEPT.ToString()));
+                        ClientInfo client = clsGeneral.Clients.FirstOrDefault(x => x.AddressClient.IsEmpty());
+                        if (client != null)
+                        {
+                            client.IPClient = ipClient.Address.ToString();
+                            client.IPServer = ipServer.Address.ToString();
+                            client.PortClient = ipClient.Port;
+                            client.PortServer = ipServer.Port;
+                            client.AddressClient = IpClient.ToString();
+                            client.AddressServer = ipServer.ToString();
+                            client.ClientHost = ipClient;
+                            client.ServerHost = ipServer;
 
-                        if (!clsGeneral.Config.Clients.Any(x => x.AddressClient.Equals(address)))
+                            client.Client.IPClient = ipClient.Address.ToString();
+                            client.Client.IPServer = ipServer.Address.ToString();
+                            client.Client.PortClient = ipClient.Port;
+                            client.Client.PortServer = ipServer.Port;
+                            client.Client.AddressClient = ipServer.ToString();
+                            client.Client.AddressServer = ipServer.ToString();
+
+                            clsServer.Connections.Add(address, this);
+                            clsServer.Response(address, clsExtension.ConvertCommand(clsGeneral.fKey.REGISTER.ToString(), clsGeneral.fKey.ACCEPT.ToString()));
+                        }
+                        else
                             clsServer.RemoveClient(address);
                     }
                 }

@@ -56,6 +56,10 @@ namespace ClientApp
         {
             base.frmBase_FormClosing(sender, e);
 
+            updateStatus = null;
+            updateConnection = null;
+            closeConnection = null;
+
             SaveConfig();
             StopClient();
         }
@@ -109,7 +113,7 @@ namespace ClientApp
                     }));
 
                 });
-                updateConnection(false, false);
+                updateConnection?.Invoke(false, false);
 
                 CheckAvailable();
                 CheckListening();
@@ -153,7 +157,7 @@ namespace ClientApp
                             if ((state == TcpState.Unknown) != IsAvailable)
                             {
                                 IsAvailable = state == TcpState.Unknown;
-                                updateConnection(IsAvailable, IsListening);
+                                updateConnection?.Invoke(IsAvailable, IsListening);
                             }
                         }
                         else if (state == TcpState.Established)
@@ -161,13 +165,13 @@ namespace ClientApp
                             if ((state == TcpState.Established) != IsAvailable)
                             {
                                 IsAvailable = state == TcpState.Established;
-                                updateConnection(IsAvailable, IsListening);
+                                updateConnection?.Invoke(IsAvailable, IsListening);
                             }
                         }
                         else
                         {
                             IsAvailable = false;
-                            updateConnection(IsAvailable, IsListening);
+                            updateConnection?.Invoke(IsAvailable, IsListening);
                         }
                         timer.Start();
                     }
@@ -194,13 +198,13 @@ namespace ClientApp
                             if ((stateListen == TcpState.Listen) != IsListening)
                             {
                                 IsListening = stateListen == TcpState.Listen;
-                                updateConnection(IsAvailable, IsListening);
+                                updateConnection?.Invoke(IsAvailable, IsListening);
                             }
                         }
                         else
                         {
                             IsListening = false;
-                            updateConnection(IsAvailable, IsListening);
+                            updateConnection?.Invoke(IsAvailable, IsListening);
                         }
                         timer.Start();
                     }
@@ -432,6 +436,8 @@ namespace ClientApp
         }
         void CloseConnection()
         {
+            IsAvailable = IsListening = false;
+
             try
             {
                 this.BeginInvokeExt(new Action(() => { lbMessage.Text = clsGeneral.fKey.DISCONNECTED.ToString(); }));
@@ -443,7 +449,7 @@ namespace ClientApp
             }
             catch { }
 
-            IsAvailable = IsListening = false;
+          
         }
         void StartTesting()
         {

@@ -10,9 +10,7 @@ namespace ServerApp
         #region Variables
         delegate void UpdateStatusCallback(string address, string msg);
         UpdateStatusCallback updateStatus;
-        BankerInfo bankerInfo = new BankerInfo();
-        List<ClientInfo> lstClients = new List<ClientInfo>();
-        List<ClientInfo> lstPlayings = new List<ClientInfo>();
+        BankerInfo Banker = new BankerInfo();
         clsServer mainServer;
         #endregion
 
@@ -62,7 +60,7 @@ namespace ServerApp
             {
                 //lbIPNetwork.Text = clsGeneral.Config.Address;
 
-                foreach (ClientInfo info in lstClients)
+                foreach (ClientInfo info in clsGeneral.Clients)
                 {
                     info.IPServer = clsGeneral.Config.IP;
                     info.PortServer = clsGeneral.Config.Port;
@@ -116,7 +114,7 @@ namespace ServerApp
             int avrWidth = tpClient.Size.Width / clsGeneral.Config.ColumnNumber;
             int avrHeight = tpClient.Size.Height / clsGeneral.Config.RowNumber;
 
-            lstClients.ForEach(x =>
+            clsGeneral.Clients.ForEach(x =>
             {
                 x.Control.Width = avrWidth - x.Control.Margin.Left - x.Control.Margin.Right;
                 x.Control.Height = avrHeight - x.Control.Margin.Top - x.Control.Margin.Bottom;
@@ -126,15 +124,15 @@ namespace ServerApp
         {
             int avrWidth = tpBanker.Size.Width;
             int avrHeight = tpBanker.Size.Height;
-            bankerInfo.Control.Width = avrWidth - bankerInfo.Control.Margin.Left - bankerInfo.Control.Margin.Right;
-            bankerInfo.Control.Height = avrHeight - bankerInfo.Control.Margin.Top - bankerInfo.Control.Margin.Bottom;
+            Banker.Control.Width = avrWidth - Banker.Control.Margin.Left - Banker.Control.Margin.Right;
+            Banker.Control.Height = avrHeight - Banker.Control.Margin.Top - Banker.Control.Margin.Bottom;
         }
         void InitClient()
         {
             int i = 0;
             int j = 0;
 
-            lstClients.Clear();
+            clsGeneral.Clients.Clear();
             tpClient.Controls.Clear();
             tpClient.ColumnStyles.Clear();
             tpClient.RowStyles.Clear();
@@ -157,12 +155,11 @@ namespace ServerApp
             {
                 for (j = 0; j < clsGeneral.Config.ColumnNumber; j++)
                 {
-                    DeviceControl dc = new DeviceControl();
-                    dc.Name = string.Format("{0}{1}{2}", clsGeneral.fKey.CLIENT.ToString(), i, j);
+                    DeviceControl dc = new DeviceControl() { Name = string.Format("{0}{1}{2}", clsGeneral.fKey.CLIENT.ToString(), i, j), Visible = false };
 
                     Client client = clsGeneral.Config.Clients.FirstOrDefault(x => x.ControlName.Equals(dc.Name));
                     ClientInfo cInfo = new ClientInfo() { Control = dc, ClientName = string.Format("{0} {1}{2}", clsGeneral.fKey.CLIENT.ToString(), i + 1, j + 1), ControlName = string.Format("{0}{1}{2}", clsGeneral.fKey.CLIENT.ToString(), i, j), RowID = i + 1, ColumnID = j + 1 };
-                    lstClients.Add(cInfo);
+                    clsGeneral.Clients.Add(cInfo);
                     if (client == null)
                         clsGeneral.Config.Clients.Add(client = new Client() { ClientName = cInfo.ClientName, ControlName = cInfo.ControlName, RowID = cInfo.RowID, ColumnID = cInfo.ColumnID });
 
@@ -193,14 +190,14 @@ namespace ServerApp
             dc.Name = string.Format("{0}{1}{2}", clsGeneral.fKey.SERVER.ToString(), i, j);
 
             Banker banker = clsGeneral.Config.Banker;
-            bankerInfo = new BankerInfo() { Control = dc, ClientName = string.Format("{0} {1}{2}", clsGeneral.fKey.SERVER.ToString(), i + 1, j + 1), ControlName = string.Format("{0}{1}{2}", clsGeneral.fKey.SERVER.ToString(), i, j), RowID = i + 1, ColumnID = j + 1 };
+            Banker = new BankerInfo() { Control = dc, ClientName = string.Format("{0} {1}{2}", clsGeneral.fKey.SERVER.ToString(), i + 1, j + 1), ControlName = string.Format("{0}{1}{2}", clsGeneral.fKey.SERVER.ToString(), i, j), RowID = i + 1, ColumnID = j + 1 };
             if (banker == null)
-                clsGeneral.Config.Banker = new Banker() { ClientName = bankerInfo.ClientName, ControlName = bankerInfo.ControlName, RowID = bankerInfo.RowID, ColumnID = bankerInfo.ColumnID };
+                clsGeneral.Config.Banker = new Banker() { ClientName = Banker.ClientName, ControlName = Banker.ControlName, RowID = Banker.RowID, ColumnID = Banker.ColumnID };
 
-            bankerInfo.Banker = banker;
-            bankerInfo.Banker.IPClient = banker.IPClient;
-            bankerInfo.Banker.PortClient = banker.PortClient;
-            bankerInfo.Banker.AddressClient = banker.AddressClient;
+            Banker.Banker = banker;
+            Banker.Banker.IPClient = banker.IPClient;
+            Banker.Banker.PortClient = banker.PortClient;
+            Banker.Banker.AddressClient = banker.AddressClient;
 
             tpBanker.Controls.Add(dc, j, i);
         }
@@ -218,7 +215,7 @@ namespace ServerApp
         #region Check client's connection
         void ReloadConnection()
         {
-            foreach (ClientInfo info in lstClients)
+            foreach (ClientInfo info in clsGeneral.Clients)
             {
                 SendCommand(info, clsExtension.ConvertCommand(clsGeneral.fKey.CONNECTING.ToString(), clsGeneral.fKey.QUESTION.ToString()));
             }
@@ -229,7 +226,7 @@ namespace ServerApp
         }
         void LoadClient(DeviceControl control)
         {
-            ClientInfo client = lstClients.FirstOrDefault(x => x.Control.Name.Equals(control.Name));
+            ClientInfo client = clsGeneral.Clients.FirstOrDefault(x => x.Control.Name.Equals(control.Name));
             if (client != null)
             {
                 frmAddressClientConfig frm = new frmAddressClientConfig(client);
@@ -258,7 +255,7 @@ namespace ServerApp
         #region Receive message
         void UpdateStatus(string address, string msg)
         {
-            ClientInfo client = lstClients.FirstOrDefault(x => x.AddressClient.Equals(address));
+            ClientInfo client = clsGeneral.Clients.FirstOrDefault(x => x.AddressClient.Equals(address));
 
             if (client == null) return;
 
@@ -274,22 +271,16 @@ namespace ServerApp
                     {
                         client.ConnectionStatus = clsGeneral.fKey.ON;
                         client.ConnectionMessage = clsGeneral.fKey.EMPTY;
+
+                        this.InvokeExt(() => { client.Control.Visible = true; });
                     }
                     if (value.Equals(clsGeneral.fKey.DENY.ToString()))
                     {
-                        if (client.ClientStatus == clsGeneral.fKey.PROCESSING)
-                        {
-                            client.ClientStatus = clsGeneral.fKey.FINISHED;
-                            client.ClientMessage = clsGeneral.fKey.NO_CLIENT_RESULT;
-
-                            ResetStatus();
-                        }
-
                         client.ConnectionStatus = clsGeneral.fKey.OFF;
                         client.ConnectionMessage = clsGeneral.fKey.EMPTY;
+
+                        this.InvokeExt(() => { client.Control.Visible = false; });
                     }
-
-
                 }
                 else if (key.Equals(clsGeneral.fKey.USERNAME.ToString()))
                 {
@@ -313,7 +304,6 @@ namespace ServerApp
                         client.ClientMessage = clsGeneral.fKey.PASS;
                     if (value.Equals(clsGeneral.fKey.FAILED.ToString()))
                         client.ClientMessage = clsGeneral.fKey.FAILED;
-
 
                     ResetStatus();
                 }
@@ -340,16 +330,17 @@ namespace ServerApp
         }
         void SaveConfig()
         {
+            clsGeneral.Config.Clients.Clear();
             clsGeneral.Config.SaveFile(clsGeneral.DirConfig, clsGeneral.FileConfig, clsGeneral.ExtConfig);
         }
         void ResetStatus()
         {
-            if (lstPlayings.All(x => x.ClientStatus == clsGeneral.fKey.FINISHED))
+            if (clsGeneral.Playings.All(x => x.ClientStatus == clsGeneral.fKey.FINISHED))
             {
                 this.InvokeExt(new Action(() =>
                 {
                     //btnStart.Enabled = true;
-                    lstPlayings.ForEach(x =>
+                    clsGeneral.Playings.ForEach(x =>
                     {
 
                     });
@@ -358,13 +349,13 @@ namespace ServerApp
         }
         void StartClient()
         {
-            lstPlayings.Clear();
+            clsGeneral.Playings.Clear();
 
-            lstClients.ForEach(x =>
+            clsGeneral.Clients.ForEach(x =>
             {
                 if (ValidData(x))
                 {
-                    lstPlayings.Add(x);
+                    clsGeneral.Playings.Add(x);
 
                     this.InvokeExt(new Action(() =>
                     {
@@ -445,7 +436,7 @@ namespace ServerApp
             TableLayoutPanel tpMain = (TableLayoutPanel)txtMain.Parent;
             DeviceControl control = (DeviceControl)tpMain.Parent;
 
-            ClientInfo client = lstClients.FirstOrDefault(x => x.Control.Name.Equals(control.Name));
+            ClientInfo client = clsGeneral.Clients.FirstOrDefault(x => x.Control.Name.Equals(control.Name));
             if (client != null && client.ClientStatus == clsGeneral.fKey.FINISHED)
             {
                 client.ClientStatus = clsGeneral.fKey.WAITING;

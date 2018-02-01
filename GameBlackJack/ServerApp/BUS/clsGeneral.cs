@@ -63,5 +63,7 @@ namespace ServerApp
 
         public static IPEndPoint AddressServer { get; set; }
         public static Config Config { get; set; } = new Config();
+        public static List<ClientInfo> Clients { get; set; } = new List<ClientInfo>();
+        public static List<ClientInfo> Playings { get; set; } = new List<ClientInfo>();
     }
 }

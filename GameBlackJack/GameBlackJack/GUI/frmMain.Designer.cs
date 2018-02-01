@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(884, 411);
             this.Name = "frmMain";
             this.Text = "Blackjack";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.ResumeLayout(false);
 
         }
