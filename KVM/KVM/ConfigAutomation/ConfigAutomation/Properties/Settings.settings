@@ -1,0 +1,14 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ConfigAutomation.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConfigAutomation_SIEWS_INT" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.124.16.163/SIE-INT/INT.asmx</Value>
+    </Setting>
+    <Setting Name="ConfigAutomation_SIEWS_INT2nd" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">
+          http://10.124.16.163/SIE-INT/INT.asmx
+        </Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
