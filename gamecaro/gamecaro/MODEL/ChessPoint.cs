@@ -13,6 +13,6 @@ namespace gamecaro
         public clsGeneral.fKey TypeOfChess { get; set; } = clsGeneral.fKey.Empty;
         public Point Location { get; set; } = new Point();
         public Point SpotCell { get; set; } = new Point();
-        public Image Image { get; set; } = new Bitmap(clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height);
+        public Bitmap Bitmap { get; set; } = new Bitmap(clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height);
     }
 }

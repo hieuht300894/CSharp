@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace gamecaro.USERCONTROL
 {
@@ -106,7 +107,7 @@ namespace gamecaro.USERCONTROL
             lstChessPoint.Insert(0, chessPoint);
 
             Pen pen = new Pen(Color.Black);
-            Graphics graphics = Graphics.FromImage(pbMain.Image);
+            Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image);
 
             for (int i = 0; i <= clsGeneral.NumberOfRows; i++)
             {
@@ -120,8 +121,7 @@ namespace gamecaro.USERCONTROL
 
             pbMain.Invalidate();
 
-            graphics.DrawImage(chessPoint.Image, 0, 0, chessPoint.Image.Width, chessPoint.Image.Height);
-            _SetPicture?.Invoke(chessPoint.Image);
+            SaveImage(chessPoint);
         }
         void DrawCross(Point point)
         {
@@ -132,7 +132,7 @@ namespace gamecaro.USERCONTROL
             lstChessPoint.Insert(0, chessPoint);
 
             Pen pen = new Pen(clsGeneral.ColorOfCross, 2);
-            Graphics graphics = Graphics.FromImage(pbMain.Image);
+            Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image);
 
             /* Vẽ chéo thuận (\) */
             graphics.DrawLine(pen, chessPoint.Location.X, chessPoint.Location.Y, chessPoint.Location.X - clsGeneral.SizeOfCross, chessPoint.Location.Y - clsGeneral.SizeOfCross);
@@ -144,8 +144,7 @@ namespace gamecaro.USERCONTROL
 
             pbMain.Invalidate();
 
-            graphics.DrawImage(chessPoint.Image, 0, 0, chessPoint.Image.Width, chessPoint.Image.Height);
-            _SetPicture?.Invoke(chessPoint.Image);
+            SaveImage(chessPoint);
         }
         void DrawCircle(Point point)
         {
@@ -156,14 +155,13 @@ namespace gamecaro.USERCONTROL
             lstChessPoint.Insert(0, chessPoint);
 
             Pen pen = new Pen(clsGeneral.ColorOfCircle, 2);
-            Graphics graphics = Graphics.FromImage(pbMain.Image);
+            Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image);
 
             graphics.DrawEllipse(pen, chessPoint.Location.X - clsGeneral.SizeOfCircle, chessPoint.Location.Y - clsGeneral.SizeOfCircle, clsGeneral.SizeOfCircle * 2, clsGeneral.SizeOfCircle * 2);
 
             pbMain.Invalidate();
 
-            graphics.DrawImage(chessPoint.Image, 0, 0, chessPoint.Image.Width, chessPoint.Image.Height);
-            _SetPicture?.Invoke(chessPoint.Image);
+            SaveImage(chessPoint);
         }
         void ConvertPointOfCell(Point pCheck, ref Point pResult, ref clsGeneral.fKey Status)
         {
@@ -199,21 +197,37 @@ namespace gamecaro.USERCONTROL
                 //}
             }
         }
+        void SaveImage(ChessPoint chessPoint)
+        {
+            using (Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image))
+            {
+                graphics.DrawImage(chessPoint.Bitmap, new Rectangle(0, 0, clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height), GraphicsUnit.Pixel);
+            }
+
+            _SetPicture?.Invoke(chessPoint.Bitmap);
+
+            //Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image);
+            //graphics.DrawImage(chessPoint.Bitmap, new Rectangle(0, 0, clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height), 0, 0, clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height, GraphicsUnit.Pixel);
+
+            //_SetPicture?.Invoke(chessPoint.Bitmap);
+        }
         void Undo()
         {
             if (lstChessPoint == null || lstChessPoint.Count == 0) return;
             lstChessPoint.RemoveAt(0);
 
             if (lstChessPoint == null || lstChessPoint.Count == 0) return;
+
             ChessPoint chessPoint = lstChessPoint[0];
 
-            Graphics graphics = Graphics.FromImage(chessPoint.Image);
-            graphics.Clear(pbMain.BackColor);
-            graphics.DrawImage(pbMain.Image, 0, 0);
+            //Graphics graphics = Graphics.FromImage(chessPoint.Image);
+            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            //graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            //graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            //graphics.DrawImage(pbMain.Image, new Rectangle(0, 0, clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height), 0, 0, clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height, GraphicsUnit.Pixel);
 
-            pbMain.Invalidate();
-
-            _SetPicture?.Invoke(chessPoint.Image);
+            //pbMain.Invalidate();
+            _SetPicture?.Invoke(chessPoint.Bitmap);
         }
     }
 }
