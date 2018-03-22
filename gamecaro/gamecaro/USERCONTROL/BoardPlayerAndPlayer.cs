@@ -66,20 +66,21 @@ namespace gamecaro.USERCONTROL
         private void pbMain_Click(object sender, EventArgs e)
         {
             MouseEventArgs mouse = (MouseEventArgs)e;
-            Point pResult = new Point();
+            int PositionOfRow = 0;
+            int PositionOfColumn = 0;
             clsGeneral.fKey Status = clsGeneral.fKey.OutLine;
 
-            clsChessBoard.ConvertPointOfCell(mouse.Location, ref pResult, ref Status);
+            clsChessBoard.ConvertPointOfCell(mouse.Location, ref PositionOfRow, ref PositionOfColumn, ref Status);
 
-            if (Status == clsGeneral.fKey.UnChecked)
+            if (Status == clsGeneral.fKey.Empty)
             {
                 switch (mouse.Button)
                 {
                     case MouseButtons.Left:
-                        DrawCross(pResult);
+                        DrawCross(PositionOfRow, PositionOfColumn);
                         break;
                     case MouseButtons.Right:
-                        DrawCircle(pResult);
+                        DrawCircle(PositionOfRow, PositionOfColumn);
                         break;
                 }
             }
@@ -121,14 +122,18 @@ namespace gamecaro.USERCONTROL
 
             SaveImage(chessPoint);
         }
-        void DrawCross(Point point)
+        void DrawCross(int PositionOfRow, int PositionOfColumn)
         {
-            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.X, point)) return;
+            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.X, PositionOfRow, PositionOfColumn)) return;
+
+            List<Cell> lstCell = new List<Cell>();
+            if (clsChessBoard.CheckWin(clsGeneral.fKey.X, clsGeneral.fKey.O, PositionOfRow, PositionOfColumn, ref lstCell)) return;
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.X;
-            chessPoint.SpotCell = new Point(point.X, point.Y);
-            chessPoint.Location = new Point(point.X * clsGeneral.ChessBoard.SizeOfCell, point.Y * clsGeneral.ChessBoard.SizeOfCell);
+            chessPoint.PositionOfRow = PositionOfRow;
+            chessPoint.PositionOfColumn = PositionOfColumn;
+            chessPoint.Location = new Point(PositionOfColumn * clsGeneral.ChessBoard.SizeOfCell, PositionOfRow * clsGeneral.ChessBoard.SizeOfCell);
             chessPoint.LastCheckPoint = lstChessPoint[0];
             lstChessPoint.Insert(0, chessPoint);
 
@@ -147,14 +152,18 @@ namespace gamecaro.USERCONTROL
 
             SaveImage(chessPoint);
         }
-        void DrawCircle(Point point)
+        void DrawCircle(int PositionOfRow, int PositionOfColumn)
         {
-            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.O, point)) return;
+            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.O, PositionOfRow, PositionOfColumn)) return;
+
+            List<Cell> lstCell = new List<Cell>();
+            if (clsChessBoard.CheckWin(clsGeneral.fKey.O, clsGeneral.fKey.X, PositionOfRow, PositionOfColumn, ref lstCell)) return;
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.O;
-            chessPoint.SpotCell = new Point(point.X, point.Y);
-            chessPoint.Location = new Point(point.X * clsGeneral.ChessBoard.SizeOfCell, point.Y * clsGeneral.ChessBoard.SizeOfCell);
+            chessPoint.PositionOfRow = PositionOfRow;
+            chessPoint.PositionOfColumn = PositionOfColumn;
+            chessPoint.Location = new Point(PositionOfColumn * clsGeneral.ChessBoard.SizeOfCell, PositionOfRow * clsGeneral.ChessBoard.SizeOfCell);
             chessPoint.LastCheckPoint = lstChessPoint[0];
             lstChessPoint.Insert(0, chessPoint);
 
@@ -167,7 +176,7 @@ namespace gamecaro.USERCONTROL
 
             SaveImage(chessPoint);
         }
-      
+
         void SaveImage(ChessPoint chessPoint)
         {
             using (Graphics graphics = Graphics.FromImage(chessPoint.Image))
@@ -189,7 +198,7 @@ namespace gamecaro.USERCONTROL
 
             pbMain.Invalidate();
 
-            clsChessBoard.RemoveTypeOfChess(chessPoint.SpotCell);
+            clsChessBoard.RemoveTypeOfChess(chessPoint.PositionOfRow, chessPoint.PositionOfColumn);
 
             _SetPicture?.Invoke(chessPoint.LastCheckPoint.Image);
         }

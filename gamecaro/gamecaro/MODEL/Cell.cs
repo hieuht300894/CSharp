@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace gamecaro
 {
-    public class Board
+    public class Cell
     {
-        /// <summary>
-        /// X: Position Of Column
-        /// Y: Position Of Row
-        /// </summary>
-        public Point Point { get; set; } = new Point();
+        public int PositionOfRow { get; set; }
+        public int PositionOfColumn { get; set; }
         public clsGeneral.fKey TypeOfChess { get; set; } = clsGeneral.fKey.Empty;
     }
 }

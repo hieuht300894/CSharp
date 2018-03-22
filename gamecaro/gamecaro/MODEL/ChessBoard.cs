@@ -17,6 +17,6 @@ namespace gamecaro
         public Color ColorOfCross { get { return Color.Red; } }
         public Color ColorOfCircle { get { return Color.Blue; } }
         public Size SizeOfBoard { get; set; }
-        public List<Board> Boards { get; set; } = new List<Board>();
+        public List<Cell> Boards { get; set; } = new List<Cell>();
     }
 }
