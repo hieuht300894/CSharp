@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BLL\AI.cs" />
     <Compile Include="BLL\AI1.cs" />
+    <Compile Include="BLL\clsChessBoard.cs" />
     <Compile Include="BLL\clsGeneral.cs" />
     <Compile Include="MODEL\BanCoCaRo.cs" />
     <Compile Include="GUI\frmMain.cs">
@@ -55,6 +56,8 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="BLL\KiemTraChienThang.cs" />
+    <Compile Include="MODEL\Board.cs" />
+    <Compile Include="MODEL\ChessBoard.cs" />
     <Compile Include="MODEL\ChessPoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

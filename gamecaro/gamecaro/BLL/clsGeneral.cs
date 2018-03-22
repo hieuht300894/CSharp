@@ -39,13 +39,6 @@ namespace gamecaro
         }
         public static int[] LimitTime = new int[] { 10, 20, 30, 40, 50, 60 };
 
-        public static int NumberOfRows { get; set; }
-        public static int NumberOfColumns { get; set; }
-        public static int SizeOfCell { get { return 24; } }
-        public static int SizeOfCross { get { return 8; } }
-        public static int SizeOfCircle { get { return 8; } }
-        public static Color ColorOfCross { get { return Color.Red; } }
-        public static Color ColorOfCircle { get { return Color.Blue; } }
-        public static Size SizeOfBoard { get; set; }
+        public static ChessBoard ChessBoard { get; set; } = new ChessBoard();
     }
 }

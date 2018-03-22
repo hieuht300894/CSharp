@@ -12,7 +12,12 @@ namespace gamecaro
     {
         public clsGeneral.fKey TypeOfChess { get; set; } = clsGeneral.fKey.Empty;
         public Point Location { get; set; } = new Point();
+        /// <summary>
+        /// X: Position Of Column
+        /// Y: Position Of Row
+        /// </summary>
         public Point SpotCell { get; set; } = new Point();
-        public Bitmap Bitmap { get; set; } = new Bitmap(clsGeneral.SizeOfBoard.Width, clsGeneral.SizeOfBoard.Height);
+        public Image Image { get; set; } = new Bitmap(clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height);
+        public ChessPoint LastCheckPoint { get; set; }
     }
 }
