@@ -254,10 +254,9 @@ namespace gamecaro.USERCONTROL
             int PositionOfRow = 0;
             int PositionOfColumn = 0;
 
-            List<ChessPoint> lstChesses = new List<ChessPoint>();
-            clsGeneral.ChessBoard.ListChesses.Where(x => x.TypeOfChess == clsGeneral.fKey.EMPTY).ToList().ForEach(x => lstChesses.Add((ChessPoint)x.Clone()));
+         
 
-            if (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, lstChesses, Attack, Block))
+            if (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
                 return;
 
             if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
