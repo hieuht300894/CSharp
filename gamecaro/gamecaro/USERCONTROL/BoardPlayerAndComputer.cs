@@ -115,9 +115,9 @@ namespace gamecaro.USERCONTROL
             StartGame();
             TestGame();
         }
-        void DrawCross(int PositionOfRow, int PositionOfColumn)
+        bool DrawCross(int PositionOfRow, int PositionOfColumn)
         {
-            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.X, PositionOfRow, PositionOfColumn)) return;
+            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.X, PositionOfRow, PositionOfColumn)) return true;
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.X;
@@ -141,11 +141,16 @@ namespace gamecaro.USERCONTROL
             SaveImage(chessPoint);
 
             if (clsChessBoard.CheckWin(clsGeneral.fKey.X, clsGeneral.fKey.O, PositionOfRow, PositionOfColumn))
+            {
                 EndGame();
+                return true;
+            }
+
+            return false;
         }
-        void DrawCircle(int PositionOfRow, int PositionOfColumn)
+        bool DrawCircle(int PositionOfRow, int PositionOfColumn)
         {
-            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.O, PositionOfRow, PositionOfColumn)) return;
+            if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.O, PositionOfRow, PositionOfColumn)) return true;
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.O;
@@ -163,7 +168,12 @@ namespace gamecaro.USERCONTROL
             SaveImage(chessPoint);
 
             if (clsChessBoard.CheckWin(clsGeneral.fKey.O, clsGeneral.fKey.X, PositionOfRow, PositionOfColumn))
+            {
                 EndGame();
+                return true;
+            }
+
+            return false;
         }
         void DrawLine()
         {
@@ -187,11 +197,11 @@ namespace gamecaro.USERCONTROL
         {
             pbMain.Invalidate();
 
-            using (Graphics graphics = Graphics.FromImage(chessPoint.Image))
-            {
-                graphics.DrawImage(pbMain.Image, new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), GraphicsUnit.Pixel);
-            }
-            _SetPicture?.Invoke(chessPoint.Image);
+            //using (Graphics graphics = Graphics.FromImage(chessPoint.Image))
+            //{
+            //    graphics.DrawImage(pbMain.Image, new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), GraphicsUnit.Pixel);
+            //}
+            //_SetPicture?.Invoke(chessPoint.Image);
         }
         void Undo()
         {
@@ -223,33 +233,58 @@ namespace gamecaro.USERCONTROL
             if (clsGeneral.ChessBoard.ListChessWins.Count >= 5)
             {
                 DrawLine();
-                clsGeneral.ChessBoard.ListChessWins.Clear();
             }
         }
         void TestGame()
         {
             clsGeneral.fKey Attack = clsGeneral.fKey.X;
             clsGeneral.fKey Block = clsGeneral.fKey.O;
+            //int PositionOfRow = 0;
+            //int PositionOfColumn = 0;
+
+            //while (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
+            //{
+
+            //}
+
+            System.Timers.Timer timer = new System.Timers.Timer() { AutoReset = true, Interval = 50 };
+            timer.Elapsed -= (s, e) => Timer_Elapsed(s, e, ref Attack, ref Block);
+            timer.Elapsed += (s, e) => Timer_Elapsed(s, e, ref Attack, ref Block);
+            timer.Start();
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e, ref clsGeneral.fKey Attack, ref clsGeneral.fKey Block)
+        {
+            System.Timers.Timer timer = (System.Timers.Timer)sender;
+            timer.Stop();
+
             int PositionOfRow = 0;
             int PositionOfColumn = 0;
 
-            while (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
+            if (clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
+                return;
+
+            if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
             {
-                if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
+                if (DrawCross(PositionOfRow, PositionOfColumn)) { return; }
+                else
                 {
                     Attack = clsGeneral.fKey.O;
                     Block = clsGeneral.fKey.X;
-
-                    DrawCross(PositionOfRow, PositionOfColumn);
                 }
-                else if (Attack == clsGeneral.fKey.O && Block == clsGeneral.fKey.X)
+
+            }
+            else if (Attack == clsGeneral.fKey.O && Block == clsGeneral.fKey.X)
+            {
+                if (DrawCircle(PositionOfRow, PositionOfColumn)) { return; }
+                else
                 {
                     Attack = clsGeneral.fKey.X;
                     Block = clsGeneral.fKey.O;
-
-                    DrawCircle(PositionOfRow, PositionOfColumn);
                 }
             }
+
+            timer.Start();
         }
     }
 }

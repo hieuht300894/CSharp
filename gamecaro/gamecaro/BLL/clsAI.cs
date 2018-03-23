@@ -10,9 +10,9 @@ namespace gamecaro
     {
         //static int[] position_X = new int[] { -1, -1, -1, 0, 1, 1, 1, 0 };
         //static int[] position_Y = new int[] { -1, 0, 1, 1, 1, 0, -1, -1 };
-        static long[] AScore = new long[10] { 0, 6, 60, 600, 6000, 60000, 600000, 6000000, 60000000, 600000000 };
-        static long[] BScore = new long[10] { 0, 4, 40, 400, 4000, 40000, 400000, 4000000, 40000000, 400000000 };
-        //static long Ratio = 20;
+        static long[] AScore = new long[7] { 0, 6, 60, 600, 6000, 60000, 600000 };
+        static long[] BScore = new long[7] { 0, 4, 40, 400, 4000, 40000, 400000 };
+        static long Ratio = 10;
 
         public static bool MinMax(ref int PositionOfRow, ref int PositionOfColumn, clsGeneral.fKey Attack, clsGeneral.fKey Block)
         {
@@ -31,7 +31,7 @@ namespace gamecaro
 
                     /*Get value*/
                     long ScoreAttack = CalculateAttackScore(chess.PositionOfRow, chess.PositionOfColumn, Attack, Block);
-                    long ScoreBlock = CalculateBlockScore(chess.PositionOfRow, chess.PositionOfColumn, Attack, Block);
+                    long ScoreBlock = CalculateBlockScore(chess.PositionOfRow, chess.PositionOfColumn, Block, Attack);
 
                     chess.Score = ScoreAttack > ScoreBlock ? ScoreAttack : ScoreBlock;
                     if (chess.Score > Score)
@@ -67,7 +67,7 @@ namespace gamecaro
 
                     if (chess.TypeOfChess == Attack)
                         NumberOfAttack++;
-                    else 
+                    else
                     {
                         if (chess.TypeOfChess == Block)
                             NumberOfBlock++;
@@ -327,7 +327,7 @@ namespace gamecaro
             if (NumberOfBlock >= 2)
                 Score += 0;
             else
-                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock];
+                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock] * Ratio;
 
 
             /*Vertical*/
@@ -381,7 +381,7 @@ namespace gamecaro
             if (NumberOfBlock >= 2)
                 Score += 0;
             else
-                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock];
+                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock] * Ratio;
 
             /*Cross (top-left) - (bottom-right)*/
             NumberOfAttack = 0;
@@ -434,7 +434,7 @@ namespace gamecaro
             if (NumberOfBlock >= 2)
                 Score += 0;
             else
-                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock];
+                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock] * Ratio;
 
             /*Cross (top-right) - (bottom-left)*/
             NumberOfAttack = 0;
@@ -487,7 +487,7 @@ namespace gamecaro
             if (NumberOfBlock >= 2)
                 Score += 0;
             else
-                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock];
+                Score += AScore[NumberOfAttack] - BScore[NumberOfBlock] * Ratio;
 
             return Score;
         }

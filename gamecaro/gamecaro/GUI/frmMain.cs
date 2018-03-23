@@ -31,10 +31,10 @@ namespace gamecaro
 
             BoardPlayerAndComputer board = new BoardPlayerAndComputer();
             board.Dock = DockStyle.Fill;
-            board._SetPicture = new BoardPlayerAndComputer.SetPicture(new Action<Image>((img) =>
-            {
-                pictureBox1.Image = img;
-            }));
+            //board._SetPicture = new BoardPlayerAndComputer.SetPicture(new Action<Image>((img) =>
+            //{
+            //    pictureBox1.Image = img;
+            //}));
             tpBoard.Controls.Add(board, 0, 0);
         }
 

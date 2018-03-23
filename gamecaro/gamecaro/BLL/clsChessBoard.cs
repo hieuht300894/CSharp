@@ -92,6 +92,10 @@ namespace gamecaro
             clsGeneral.ChessBoard.ListChessWins.Clear();
 
             /*Horizontal*/
+            sumAttack = 0;
+            sumBlock = 0;
+            clsGeneral.ChessBoard.ListChessWins.Clear();
+
             for (int d = 1; d < 6; d++)
             {
                 if ((PositionOfColumn + d) < clsGeneral.ChessBoard.NumberOfColumns)
@@ -150,6 +154,10 @@ namespace gamecaro
             }
 
             /*Vertical*/
+            sumAttack = 0;
+            sumBlock = 0;
+            clsGeneral.ChessBoard.ListChessWins.Clear();
+
             for (int d = 1; d < 6; d++)
             {
                 if ((PositionOfRow + d) < clsGeneral.ChessBoard.NumberOfRows)
@@ -208,6 +216,10 @@ namespace gamecaro
             }
 
             /*Cross (top-left) - (bottom-right)*/
+            sumAttack = 0;
+            sumBlock = 0;
+            clsGeneral.ChessBoard.ListChessWins.Clear();
+
             for (int d = 1; d < 6; d++)
             {
                 if ((PositionOfRow + d) < clsGeneral.ChessBoard.NumberOfRows && (PositionOfColumn + d) < clsGeneral.ChessBoard.NumberOfColumns)
@@ -266,6 +278,10 @@ namespace gamecaro
             }
 
             /*Cross (top-right) - (bottom-left)*/
+            sumAttack = 0;
+            sumBlock = 0;
+            clsGeneral.ChessBoard.ListChessWins.Clear();
+
             for (int d = 1; d < 6; d++)
             {
                 if ((PositionOfRow + d) < clsGeneral.ChessBoard.NumberOfRows && (PositionOfColumn - d) > 0)
@@ -336,9 +352,13 @@ namespace gamecaro
                 {
                     if (clsGeneral.ChessBoard.ListChessWins[i].PositionOfColumn > clsGeneral.ChessBoard.ListChessWins[j].PositionOfColumn)
                     {
-                        int temp = clsGeneral.ChessBoard.ListChessWins[i].PositionOfColumn;
+                        int t1 = clsGeneral.ChessBoard.ListChessWins[i].PositionOfRow;
+                        clsGeneral.ChessBoard.ListChessWins[i].PositionOfRow = clsGeneral.ChessBoard.ListChessWins[j].PositionOfRow;
+                        clsGeneral.ChessBoard.ListChessWins[j].PositionOfRow = t1;
+
+                        int t2 = clsGeneral.ChessBoard.ListChessWins[i].PositionOfColumn;
                         clsGeneral.ChessBoard.ListChessWins[i].PositionOfColumn = clsGeneral.ChessBoard.ListChessWins[j].PositionOfColumn;
-                        clsGeneral.ChessBoard.ListChessWins[j].PositionOfColumn = temp;
+                        clsGeneral.ChessBoard.ListChessWins[j].PositionOfColumn = t2;
                     }
                 }
             }
@@ -356,6 +376,10 @@ namespace gamecaro
                         int t1 = clsGeneral.ChessBoard.ListChessWins[i].PositionOfRow;
                         clsGeneral.ChessBoard.ListChessWins[i].PositionOfRow = clsGeneral.ChessBoard.ListChessWins[j].PositionOfRow;
                         clsGeneral.ChessBoard.ListChessWins[j].PositionOfRow = t1;
+
+                        int t2 = clsGeneral.ChessBoard.ListChessWins[i].PositionOfColumn;
+                        clsGeneral.ChessBoard.ListChessWins[i].PositionOfColumn = clsGeneral.ChessBoard.ListChessWins[j].PositionOfColumn;
+                        clsGeneral.ChessBoard.ListChessWins[j].PositionOfColumn = t2;
                     }
                 }
             }
