@@ -47,6 +47,7 @@
     <Compile Include="BLL\AI.cs" />
     <Compile Include="BLL\AI1.cs" />
     <Compile Include="BLL\clsChessBoard.cs" />
+    <Compile Include="BLL\clsExtension.cs" />
     <Compile Include="BLL\clsGeneral.cs" />
     <Compile Include="BLL\clsServer.cs" />
     <Compile Include="GUI\frmBase.cs">

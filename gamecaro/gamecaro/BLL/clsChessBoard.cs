@@ -12,7 +12,7 @@ namespace gamecaro
         public static bool CheckEmptyOfChess(clsGeneral.fKey typeOfChess, int PositionOfRow, int PositionOfColumn)
         {
             Cell board = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == PositionOfRow && x.PositionOfColumn == PositionOfColumn);
-            if (board.TypeOfChess == clsGeneral.fKey.Empty)
+            if (board.TypeOfChess == clsGeneral.fKey.EMPTY)
             {
                 board.TypeOfChess = typeOfChess;
                 return true;
@@ -27,17 +27,17 @@ namespace gamecaro
         {
             Cell board = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == PositionOfRow && x.PositionOfColumn == PositionOfColumn);
             if (board.TypeOfChess == clsGeneral.fKey.X || board.TypeOfChess == clsGeneral.fKey.O)
-                board.TypeOfChess = clsGeneral.fKey.Empty;
+                board.TypeOfChess = clsGeneral.fKey.EMPTY;
         }
 
         public static void CreateEmptyBoard()
         {
             clsGeneral.ChessBoard.Boards = new List<Cell>();
 
-            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = 0, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.Empty });
-            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = 0, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.Empty });
-            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.Empty });
-            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.Empty });
+            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = 0, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.EMPTY });
+            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = 0, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.EMPTY });
+            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.EMPTY });
+            clsGeneral.ChessBoard.Boards.Add(new Cell() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.EMPTY });
 
             for (int i = 1; i < clsGeneral.ChessBoard.NumberOfRows; i++)
             {
@@ -47,7 +47,7 @@ namespace gamecaro
                     {
                         PositionOfRow = i,
                         PositionOfColumn = j,
-                        TypeOfChess = clsGeneral.fKey.Empty
+                        TypeOfChess = clsGeneral.fKey.EMPTY
                     });
                 }
             }
@@ -67,12 +67,12 @@ namespace gamecaro
             if (div_X <= 0 || div_Y <= 0 || div_X >= clsGeneral.ChessBoard.NumberOfColumns || div_Y >= clsGeneral.ChessBoard.NumberOfRows)
             {
                 /* Outline */
-                Status = clsGeneral.fKey.OutLine;
+                Status = clsGeneral.fKey.OUTLINE;
             }
             else
             {
                 /* Empty */
-                Status = clsGeneral.fKey.Empty;
+                Status = clsGeneral.fKey.EMPTY;
                 PositionOfRow = div_Y;
                 PositionOfColumn = div_X;
 
@@ -101,7 +101,7 @@ namespace gamecaro
                 if ((PositionOfColumn + d) < clsGeneral.ChessBoard.NumberOfColumns)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == PositionOfRow && x.PositionOfColumn == (PositionOfColumn + d));
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)
@@ -126,7 +126,7 @@ namespace gamecaro
                 if ((PositionOfColumn - d) > 0)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == PositionOfRow && x.PositionOfColumn == (PositionOfColumn - d));
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)
@@ -159,7 +159,7 @@ namespace gamecaro
                 if ((PositionOfRow + d) < clsGeneral.ChessBoard.NumberOfRows)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow + d) && x.PositionOfColumn == PositionOfColumn);
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)
@@ -184,7 +184,7 @@ namespace gamecaro
                 if ((PositionOfRow - d) > 0)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow - d) && x.PositionOfColumn == PositionOfColumn);
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)
@@ -217,7 +217,7 @@ namespace gamecaro
                 if ((PositionOfRow + d) < clsGeneral.ChessBoard.NumberOfRows && (PositionOfColumn + d) < clsGeneral.ChessBoard.NumberOfColumns)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow + d) && x.PositionOfColumn == (PositionOfColumn + d));
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)
@@ -242,7 +242,7 @@ namespace gamecaro
                 if ((PositionOfRow - d) > 0 && (PositionOfColumn - d) > 0)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow - d) && x.PositionOfColumn == (PositionOfColumn - d));
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)
@@ -275,7 +275,7 @@ namespace gamecaro
                 if ((PositionOfRow + d) < clsGeneral.ChessBoard.NumberOfRows && (PositionOfColumn - d) > 0)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow + d) && x.PositionOfColumn == (PositionOfColumn - d));
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)
@@ -300,7 +300,7 @@ namespace gamecaro
                 if ((PositionOfRow - d) > 0 && (PositionOfColumn + d) < clsGeneral.ChessBoard.NumberOfColumns)
                 {
                     Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow - d) && x.PositionOfColumn == (PositionOfColumn + d));
-                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.Empty)
+                    if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O && cell.TypeOfChess != clsGeneral.fKey.EMPTY)
                         continue;
 
                     if (cell.TypeOfChess == attack)

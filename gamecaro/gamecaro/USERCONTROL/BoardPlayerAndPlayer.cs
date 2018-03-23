@@ -65,11 +65,11 @@ namespace gamecaro.USERCONTROL
             MouseEventArgs mouse = (MouseEventArgs)e;
             int PositionOfRow = 0;
             int PositionOfColumn = 0;
-            clsGeneral.fKey Status = clsGeneral.fKey.OutLine;
+            clsGeneral.fKey Status = clsGeneral.fKey.OUTLINE;
 
             clsChessBoard.ConvertPointOfCell(mouse.Location, ref PositionOfRow, ref PositionOfColumn, ref Status);
 
-            if (Status == clsGeneral.fKey.Empty)
+            if (Status == clsGeneral.fKey.EMPTY)
             {
                 switch (mouse.Button)
                 {
@@ -99,7 +99,7 @@ namespace gamecaro.USERCONTROL
         void DrawBoard()
         {
             ChessPoint chessPoint = new ChessPoint();
-            chessPoint.TypeOfChess = clsGeneral.fKey.Board;
+            chessPoint.TypeOfChess = clsGeneral.fKey.BOARD;
             lstChessPoint.Insert(0, chessPoint);
 
             Pen pen = new Pen(Color.Black);
@@ -173,7 +173,7 @@ namespace gamecaro.USERCONTROL
         void DrawLine()
         {
             ChessPoint chessPoint = new ChessPoint();
-            chessPoint.TypeOfChess = clsGeneral.fKey.Line;
+            chessPoint.TypeOfChess = clsGeneral.fKey.LINE;
             lstChessPoint.Insert(0, chessPoint);
 
             Pen pen = new Pen(clsGeneral.ChessBoard.ColorOfLine, 3f);

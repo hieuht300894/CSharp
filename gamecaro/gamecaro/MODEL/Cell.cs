@@ -11,6 +11,6 @@ namespace gamecaro
     {
         public int PositionOfRow { get; set; }
         public int PositionOfColumn { get; set; }
-        public clsGeneral.fKey TypeOfChess { get; set; } = clsGeneral.fKey.Empty;
+        public clsGeneral.fKey TypeOfChess { get; set; } = clsGeneral.fKey.EMPTY;
     }
 }
