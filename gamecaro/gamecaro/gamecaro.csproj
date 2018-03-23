@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BLL\AI.cs" />
     <Compile Include="BLL\AI1.cs" />
+    <Compile Include="BLL\clsAI.cs" />
     <Compile Include="BLL\clsChessBoard.cs" />
     <Compile Include="BLL\clsExtension.cs" />
     <Compile Include="BLL\clsGeneral.cs" />
@@ -70,6 +71,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MODEL\ToaDo.cs" />
+    <Compile Include="USERCONTROL\BoardPlayerAndComputer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="USERCONTROL\BoardPlayerAndComputer.Designer.cs">
+      <DependentUpon>BoardPlayerAndComputer.cs</DependentUpon>
+    </Compile>
     <Compile Include="USERCONTROL\BoardPlayerAndPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>

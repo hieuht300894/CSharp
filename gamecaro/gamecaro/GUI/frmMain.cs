@@ -21,9 +21,17 @@ namespace gamecaro
 
         protected override void FrmBase_Load(object sender, EventArgs e)
         {
-            BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
+            //BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
+            //board.Dock = DockStyle.Fill;
+            //board._SetPicture = new BoardPlayerAndPlayer.SetPicture(new Action<Image>((img) =>
+            //{
+            //    pictureBox1.Image = img;
+            //}));
+            //tpBoard.Controls.Add(board, 0, 0);
+
+            BoardPlayerAndComputer board = new BoardPlayerAndComputer();
             board.Dock = DockStyle.Fill;
-            board._SetPicture = new BoardPlayerAndPlayer.SetPicture(new Action<Image>((img) =>
+            board._SetPicture = new BoardPlayerAndComputer.SetPicture(new Action<Image>((img) =>
             {
                 pictureBox1.Image = img;
             }));

@@ -20,7 +20,9 @@ namespace gamecaro
         public Color ColorOfLine { get { return Color.Green; } }
         public Size SizeOfBoard { get; set; }
 
-        public List<Cell> Boards { get; set; } = new List<Cell>();
-        public  int[] LimitTime = new int[] { 10, 20, 30, 40, 50, 60 };
+        public int[] LimitTime = new int[] { 10, 20, 30, 40, 50, 60 };
+        public List<ChessPoint> ListChesses { get; set; } = new List<ChessPoint>();
+        public List<ChessPoint> ListChessCheckeds { get; set; } = new List<ChessPoint>();
+        public List<ChessPoint> ListChessWins = new List<ChessPoint>();
     }
 }

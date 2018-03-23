@@ -244,6 +244,7 @@
             this.ClientSize = new System.Drawing.Size(884, 411);
             this.Controls.Add(this.tpMain);
             this.Controls.Add(this.menuStrip1);
+            this.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.Text = "Tic Tac Toe Game";
