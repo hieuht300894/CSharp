@@ -89,11 +89,11 @@ namespace gamecaro
             }
         }
 
-        public static bool CheckWin(clsGeneral.fKey attack, clsGeneral.fKey block, int PositionOfRow, int PositionOfColumn, ref List<Cell> lstPoint)
+        public static bool CheckWin(clsGeneral.fKey attack, clsGeneral.fKey block, int PositionOfRow, int PositionOfColumn, ref List<Cell> lstCell)
         {
             int sumAttack = 0;
             int sumBlock = 0;
-            lstPoint = new List<Cell>();
+            lstCell.Clear();
 
             /*Kiểm tra hàng ngang*/
             for (int d = 1; d < 6 && (PositionOfColumn + d) < clsGeneral.ChessBoard.NumberOfColumns; d++)
@@ -105,7 +105,7 @@ namespace gamecaro
                 if (cell.TypeOfChess == attack)
                 {
                     sumAttack++;
-                    lstPoint.Add(new Cell() { PositionOfRow = PositionOfRow, PositionOfColumn = (PositionOfColumn + d), TypeOfChess = attack });
+                    lstCell.Add(new Cell() { PositionOfRow = PositionOfRow, PositionOfColumn = (PositionOfColumn + d), TypeOfChess = attack });
                 }
                 else
                 {
@@ -123,7 +123,7 @@ namespace gamecaro
                 if (cell.TypeOfChess == attack)
                 {
                     sumAttack++;
-                    lstPoint.Add(new Cell() { PositionOfRow = PositionOfRow, PositionOfColumn = (PositionOfColumn - d), TypeOfChess = attack });
+                    lstCell.Add(new Cell() { PositionOfRow = PositionOfRow, PositionOfColumn = (PositionOfColumn - d), TypeOfChess = attack });
                 }
                 else
                 {
@@ -133,7 +133,55 @@ namespace gamecaro
                 }
             }
             if (sumAttack >= 4 && sumBlock < 2)
+            {
+                lstCell.Add(new Cell() { PositionOfRow = PositionOfRow, PositionOfColumn = PositionOfColumn, TypeOfChess = attack });
+                SortHorizontal(ref lstCell);
                 return true;
+            }
+
+            /*Kiểm tra hàng dọc*/
+            for (int d = 1; d < 6 && (PositionOfRow + d) < clsGeneral.ChessBoard.NumberOfRows; d++)
+            {
+                Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow + d) && x.PositionOfColumn == PositionOfColumn);
+                if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O)
+                    continue;
+
+                if (cell.TypeOfChess == attack)
+                {
+                    sumAttack++;
+                    lstCell.Add(new Cell() { PositionOfRow = (PositionOfRow + d), PositionOfColumn = PositionOfColumn, TypeOfChess = attack });
+                }
+                else
+                {
+                    if (cell.TypeOfChess == block)
+                        sumBlock++;
+                    break;
+                }
+            }
+            for (int d = 1; d < 6 && (PositionOfRow - d) >= 1; d++)
+            {
+                Cell cell = clsGeneral.ChessBoard.Boards.FirstOrDefault(x => x.PositionOfRow == (PositionOfRow - d) && x.PositionOfColumn == PositionOfColumn);
+                if (cell.TypeOfChess != clsGeneral.fKey.X && cell.TypeOfChess != clsGeneral.fKey.O)
+                    continue;
+
+                if (cell.TypeOfChess == attack)
+                {
+                    sumAttack++;
+                    lstCell.Add(new Cell() { PositionOfRow = (PositionOfRow - d), PositionOfColumn = PositionOfColumn, TypeOfChess = attack });
+                }
+                else
+                {
+                    if (cell.TypeOfChess == block)
+                        sumBlock++;
+                    break;
+                }
+            }
+            if (sumAttack >= 4 && sumBlock < 2)
+            {
+                lstCell.Add(new Cell() { PositionOfRow = PositionOfRow, PositionOfColumn = PositionOfColumn, TypeOfChess = attack });
+                SortVertical(ref lstCell);
+                return true;
+            }
 
             ////Kiem tra hang doc
             //lstPoint.Clear();
@@ -266,7 +314,44 @@ namespace gamecaro
             //if (sumAttack >= 4 && sumBlock < 2)
             //    return true;
 
+            lstCell.Clear();
             return false;
         }
+
+        public static void SortHorizontal(ref List<Cell> lstCell)
+        {
+            int n = lstCell.Count;
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (lstCell[i].PositionOfColumn > lstCell[j].PositionOfColumn)
+                    {
+                        int temp = lstCell[i].PositionOfColumn;
+                        lstCell[i].PositionOfColumn = lstCell[j].PositionOfColumn;
+                        lstCell[j].PositionOfColumn = temp;
+                    }
+                }
+            }
+        }
+
+        public static void SortVertical(ref List<Cell> lstCell)
+        {
+            int n = lstCell.Count;
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (lstCell[i].PositionOfRow > lstCell[j].PositionOfRow)
+                    {
+                        int t1 = lstCell[i].PositionOfRow;
+                        lstCell[i].PositionOfRow = lstCell[j].PositionOfRow;
+                        lstCell[j].PositionOfRow = t1;
+                    }
+                }
+            }
+        }
+
+
     }
 }

@@ -35,7 +35,8 @@ namespace gamecaro
             X = 4,
             O = 5,
             Undo = 6,
-            Board = 7
+            Board = 7,
+            Line = 8
         }
         public static int[] LimitTime = new int[] { 10, 20, 30, 40, 50, 60 };
 

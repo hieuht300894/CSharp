@@ -18,6 +18,7 @@ namespace gamecaro.USERCONTROL
         public SetPicture _SetPicture;
 
         List<ChessPoint> lstChessPoint = new List<ChessPoint>();
+        List<Cell> lstCellWin = new List<Cell>();
         FormWindowState prevWindowState = FormWindowState.Normal;
         Rectangle mHoverRectangle = Rectangle.Empty;
 
@@ -30,10 +31,6 @@ namespace gamecaro.USERCONTROL
         {
             prevWindowState = ParentForm.WindowState;
 
-            pbMain.Click -= pbMain_Click;
-            pbMain.Click += pbMain_Click;
-            PreviewKeyDown -= BoardPlayerAndPlayer_PreviewKeyDown;
-            PreviewKeyDown += BoardPlayerAndPlayer_PreviewKeyDown;
             SizeChanged -= BoardPlayerAndPlayer_SizeChanged;
             SizeChanged += BoardPlayerAndPlayer_SizeChanged;
         }
@@ -118,16 +115,19 @@ namespace gamecaro.USERCONTROL
                 graphics.DrawLine(pen, clsGeneral.ChessBoard.SizeOfCell * i, 0, clsGeneral.ChessBoard.SizeOfCell * i, clsGeneral.ChessBoard.NumberOfRows * clsGeneral.ChessBoard.SizeOfCell);
             }
 
-            pbMain.Invalidate();
-
             SaveImage(chessPoint);
+            EndGame();
+            StartGame();
         }
         void DrawCross(int PositionOfRow, int PositionOfColumn)
         {
             if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.X, PositionOfRow, PositionOfColumn)) return;
 
-            List<Cell> lstCell = new List<Cell>();
-            if (clsChessBoard.CheckWin(clsGeneral.fKey.X, clsGeneral.fKey.O, PositionOfRow, PositionOfColumn, ref lstCell)) return;
+            if (clsChessBoard.CheckWin(clsGeneral.fKey.X, clsGeneral.fKey.O, PositionOfRow, PositionOfColumn, ref lstCellWin))
+            {
+                EndGame();
+                return;
+            }
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.X;
@@ -148,16 +148,17 @@ namespace gamecaro.USERCONTROL
             graphics.DrawLine(pen, chessPoint.Location.X, chessPoint.Location.Y, chessPoint.Location.X - clsGeneral.ChessBoard.SizeOfCross, chessPoint.Location.Y + clsGeneral.ChessBoard.SizeOfCross);
             graphics.DrawLine(pen, chessPoint.Location.X, chessPoint.Location.Y, chessPoint.Location.X + clsGeneral.ChessBoard.SizeOfCross, chessPoint.Location.Y - clsGeneral.ChessBoard.SizeOfCross);
 
-            pbMain.Invalidate();
-
             SaveImage(chessPoint);
         }
         void DrawCircle(int PositionOfRow, int PositionOfColumn)
         {
             if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.O, PositionOfRow, PositionOfColumn)) return;
 
-            List<Cell> lstCell = new List<Cell>();
-            if (clsChessBoard.CheckWin(clsGeneral.fKey.O, clsGeneral.fKey.X, PositionOfRow, PositionOfColumn, ref lstCell)) return;
+            if (clsChessBoard.CheckWin(clsGeneral.fKey.O, clsGeneral.fKey.X, PositionOfRow, PositionOfColumn, ref lstCellWin))
+            {
+                EndGame();
+                return;
+            }
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.O;
@@ -172,13 +173,29 @@ namespace gamecaro.USERCONTROL
 
             graphics.DrawEllipse(pen, chessPoint.Location.X - clsGeneral.ChessBoard.SizeOfCircle, chessPoint.Location.Y - clsGeneral.ChessBoard.SizeOfCircle, clsGeneral.ChessBoard.SizeOfCircle * 2, clsGeneral.ChessBoard.SizeOfCircle * 2);
 
-            pbMain.Invalidate();
+            SaveImage(chessPoint);
+        }
+        void DrawLine()
+        {
+            ChessPoint chessPoint = new ChessPoint();
+            chessPoint.TypeOfChess = clsGeneral.fKey.Line;
+            lstChessPoint.Insert(0, chessPoint);
+
+            Pen pen = new Pen(clsGeneral.ChessBoard.ColorOfCross, 1.5f);
+            Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image);
+
+            Cell cStart = lstCellWin[0];
+            Cell cEnd = lstCellWin[4];
+
+            graphics.DrawLine(pen, cStart.PositionOfColumn, cStart.PositionOfRow, cEnd.PositionOfColumn * clsGeneral.ChessBoard.SizeOfCell, cEnd.PositionOfRow * clsGeneral.ChessBoard.SizeOfCell);
 
             SaveImage(chessPoint);
         }
 
         void SaveImage(ChessPoint chessPoint)
         {
+            pbMain.Invalidate();
+
             using (Graphics graphics = Graphics.FromImage(chessPoint.Image))
             {
                 graphics.DrawImage(pbMain.Image, new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), GraphicsUnit.Pixel);
@@ -201,6 +218,22 @@ namespace gamecaro.USERCONTROL
             clsChessBoard.RemoveTypeOfChess(chessPoint.PositionOfRow, chessPoint.PositionOfColumn);
 
             _SetPicture?.Invoke(chessPoint.LastCheckPoint.Image);
+        }
+        void StartGame()
+        {
+            pbMain.Click += pbMain_Click;
+            PreviewKeyDown += BoardPlayerAndPlayer_PreviewKeyDown;
+        }
+        void EndGame()
+        {
+            pbMain.Click -= pbMain_Click;
+            PreviewKeyDown -= BoardPlayerAndPlayer_PreviewKeyDown;
+
+            if (lstCellWin.Count >= 5)
+            {
+                DrawLine();
+                lstCellWin.Clear();
+            }
         }
     }
 }
