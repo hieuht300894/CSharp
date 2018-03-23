@@ -12,7 +12,7 @@ namespace gamecaro
         //static int[] position_Y = new int[] { -1, 0, 1, 1, 1, 0, -1, -1 };
         static long[] AScore = new long[7] { 0, 6, 60, 600, 6000, 60000, 600000 };
         static long[] BScore = new long[7] { 0, 4, 40, 400, 4000, 40000, 400000 };
-        static long Ratio = 10;
+        static long Ratio = 5;
 
         public static bool MinMax(ref int PositionOfRow, ref int PositionOfColumn, clsGeneral.fKey Attack, clsGeneral.fKey Block)
         {

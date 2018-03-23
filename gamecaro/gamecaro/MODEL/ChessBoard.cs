@@ -23,6 +23,7 @@ namespace gamecaro
         public int[] LimitTime = new int[] { 10, 20, 30, 40, 50, 60 };
         public List<ChessPoint> ListChesses { get; set; } = new List<ChessPoint>();
         public List<ChessPoint> ListChessCheckeds { get; set; } = new List<ChessPoint>();
+        public List<ChessPoint> ListChessUnCheckeds { get; set; } = new List<ChessPoint>();
         public List<ChessPoint> ListChessWins = new List<ChessPoint>();
     }
 }

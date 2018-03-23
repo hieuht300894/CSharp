@@ -239,15 +239,8 @@ namespace gamecaro.USERCONTROL
         {
             clsGeneral.fKey Attack = clsGeneral.fKey.X;
             clsGeneral.fKey Block = clsGeneral.fKey.O;
-            //int PositionOfRow = 0;
-            //int PositionOfColumn = 0;
 
-            //while (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
-            //{
-
-            //}
-
-            System.Timers.Timer timer = new System.Timers.Timer() { AutoReset = true, Interval = 50 };
+            System.Timers.Timer timer = new System.Timers.Timer() { AutoReset = true, Interval = 10 };
             timer.Elapsed -= (s, e) => Timer_Elapsed(s, e, ref Attack, ref Block);
             timer.Elapsed += (s, e) => Timer_Elapsed(s, e, ref Attack, ref Block);
             timer.Start();
