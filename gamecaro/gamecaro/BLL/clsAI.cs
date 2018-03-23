@@ -10,40 +10,85 @@ namespace gamecaro
     {
         //static int[] position_X = new int[] { -1, -1, -1, 0, 1, 1, 1, 0 };
         //static int[] position_Y = new int[] { -1, 0, 1, 1, 1, 0, -1, -1 };
+
         static long[] AScore = new long[7] { 0, 6, 60, 600, 6000, 60000, 600000 };
         static long[] BScore = new long[7] { 0, 4, 40, 400, 4000, 40000, 400000 };
         static long Ratio = 5;
 
         public static bool MinMax(ref int PositionOfRow, ref int PositionOfColumn, clsGeneral.fKey Attack, clsGeneral.fKey Block)
         {
-            bool IsEmpty = true;
-
             long Score = long.MinValue;
 
-            foreach (ChessPoint chess in clsGeneral.ChessBoard.ListChesses)
+            /*Get chess is empty*/
+            List<ChessPoint> lstChesses = new List<ChessPoint>();
+            clsGeneral.ChessBoard.ListChesses.Where(x => x.TypeOfChess == clsGeneral.fKey.EMPTY).ToList().ForEach(x => lstChesses.Add((ChessPoint)x.Clone()));
+
+            if (lstChesses.Count == 0) return false;
+
+            foreach (ChessPoint chess in lstChesses)
             {
-                /*Get chess is empty*/
-                if (chess.TypeOfChess == clsGeneral.fKey.EMPTY)
+                /*Set value*/
+                chess.Score = 0;
+
+                /*Get value*/
+                long ScoreAttack = CalculateAttackScore(chess.PositionOfRow, chess.PositionOfColumn, Attack, Block);
+                long ScoreBlock = CalculateBlockScore(chess.PositionOfRow, chess.PositionOfColumn, Block, Attack);
+
+                chess.Score = ScoreAttack > ScoreBlock ? ScoreAttack : ScoreBlock;
+                if (chess.Score > Score)
                 {
-                    /*Set value*/
-                    IsEmpty = false;
-                    chess.Score = 0;
+                    Score = chess.Score;
+                    PositionOfRow = chess.PositionOfRow;
+                    PositionOfColumn = chess.PositionOfColumn;
 
-                    /*Get value*/
-                    long ScoreAttack = CalculateAttackScore(chess.PositionOfRow, chess.PositionOfColumn, Attack, Block);
-                    long ScoreBlock = CalculateBlockScore(chess.PositionOfRow, chess.PositionOfColumn, Block, Attack);
+                    ChessPoint _chess = lstChesses.FirstOrDefault(x => x.PositionOfRow == chess.PositionOfRow && x.PositionOfColumn == chess.PositionOfColumn);
+                    _chess.TypeOfChess = Attack;
 
-                    chess.Score = ScoreAttack > ScoreBlock ? ScoreAttack : ScoreBlock;
-                    if (chess.Score > Score)
-                    {
-                        Score = chess.Score;
-                        PositionOfRow = chess.PositionOfRow;
-                        PositionOfColumn = chess.PositionOfColumn;
-                    }
+                    if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
+                        CheckDepth(2, lstChesses, clsGeneral.fKey.O, clsGeneral.fKey.X);
+                    else if (Attack == clsGeneral.fKey.O && Block == clsGeneral.fKey.X)
+                        CheckDepth(2, lstChesses, clsGeneral.fKey.X, clsGeneral.fKey.O);
+
+                    _chess.TypeOfChess = clsGeneral.fKey.EMPTY;
                 }
             }
 
-            return IsEmpty;
+            return true;
+        }
+
+        static void CheckDepth(int Level, List<ChessPoint> lstChesses, clsGeneral.fKey Attack, clsGeneral.fKey Block)
+        {
+            if (Level > 2) return;
+
+            /*Get chess is empty*/
+            List<ChessPoint> lstEmptyChesses = new List<ChessPoint>();
+            clsGeneral.ChessBoard.ListChesses.Where(x => x.TypeOfChess == clsGeneral.fKey.EMPTY).ToList().ForEach(x => lstEmptyChesses.Add((ChessPoint)x.Clone()));
+
+            if (lstEmptyChesses.Count == 0) return;
+
+            foreach (ChessPoint chess in lstEmptyChesses)
+            {
+                /*Set value*/
+                chess.Score = 0;
+
+                /*Get value*/
+                long ScoreAttack = CalculateAttackScore(chess.PositionOfRow, chess.PositionOfColumn, Attack, Block);
+                long ScoreBlock = CalculateBlockScore(chess.PositionOfRow, chess.PositionOfColumn, Block, Attack);
+
+                chess.Score = ScoreAttack > ScoreBlock ? ScoreAttack : ScoreBlock;
+                if (chess.Score > Score)
+                {
+                    ChessPoint _chess = lstChesses.FirstOrDefault(x => x.PositionOfRow == chess.PositionOfRow && x.PositionOfColumn == chess.PositionOfColumn);
+                    _chess.TypeOfChess = Attack;
+
+                    if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
+                        CheckDepth(Level++, lstChesses, clsGeneral.fKey.O, clsGeneral.fKey.X);
+                    else if (Attack == clsGeneral.fKey.O && Block == clsGeneral.fKey.X)
+                        CheckDepth(Level++, lstChesses, clsGeneral.fKey.X, clsGeneral.fKey.O);
+
+                    _chess.TypeOfChess = clsGeneral.fKey.EMPTY;
+                }
+            }
         }
 
         static long CalculateAttackScore(int PositionOfRow, int PositionOfColumn, clsGeneral.fKey Attack, clsGeneral.fKey Block)

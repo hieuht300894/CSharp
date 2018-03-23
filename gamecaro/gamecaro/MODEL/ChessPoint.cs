@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace gamecaro
 {
-    public class ChessPoint
+    public class ChessPoint : ICloneable
     {
         public clsGeneral.fKey TypeOfChess { get; set; } = clsGeneral.fKey.EMPTY;
         public Point Location { get; set; } = new Point();
@@ -17,5 +17,10 @@ namespace gamecaro
         public Image Image { get; set; } = new Bitmap(clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height);
         public ChessPoint LastCheckPoint { get; set; }
         public long Score { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

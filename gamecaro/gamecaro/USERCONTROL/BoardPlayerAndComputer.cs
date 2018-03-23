@@ -240,7 +240,7 @@ namespace gamecaro.USERCONTROL
             clsGeneral.fKey Attack = clsGeneral.fKey.X;
             clsGeneral.fKey Block = clsGeneral.fKey.O;
 
-            System.Timers.Timer timer = new System.Timers.Timer() { AutoReset = true, Interval = 10 };
+            System.Timers.Timer timer = new System.Timers.Timer() { AutoReset = true, Interval = 50 };
             timer.Elapsed -= (s, e) => Timer_Elapsed(s, e, ref Attack, ref Block);
             timer.Elapsed += (s, e) => Timer_Elapsed(s, e, ref Attack, ref Block);
             timer.Start();
@@ -254,7 +254,10 @@ namespace gamecaro.USERCONTROL
             int PositionOfRow = 0;
             int PositionOfColumn = 0;
 
-            if (clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
+            List<ChessPoint> lstChesses = new List<ChessPoint>();
+            clsGeneral.ChessBoard.ListChesses.Where(x => x.TypeOfChess == clsGeneral.fKey.EMPTY).ToList().ForEach(x => lstChesses.Add((ChessPoint)x.Clone()));
+
+            if (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, lstChesses, Attack, Block))
                 return;
 
             if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
