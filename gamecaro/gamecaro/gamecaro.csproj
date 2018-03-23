@@ -48,6 +48,13 @@
     <Compile Include="BLL\AI1.cs" />
     <Compile Include="BLL\clsChessBoard.cs" />
     <Compile Include="BLL\clsGeneral.cs" />
+    <Compile Include="BLL\clsServer.cs" />
+    <Compile Include="GUI\frmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmBase.Designer.cs">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="MODEL\BanCoCaRo.cs" />
     <Compile Include="GUI\frmMain.cs">
       <SubType>Form</SubType>
@@ -68,6 +75,9 @@
     <Compile Include="USERCONTROL\BoardPlayerAndPlayer.Designer.cs">
       <DependentUpon>BoardPlayerAndPlayer.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GUI\frmBase.resx">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

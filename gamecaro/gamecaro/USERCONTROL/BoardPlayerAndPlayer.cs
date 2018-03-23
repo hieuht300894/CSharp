@@ -118,16 +118,11 @@ namespace gamecaro.USERCONTROL
             SaveImage(chessPoint);
             EndGame();
             StartGame();
+            TestGame();
         }
         void DrawCross(int PositionOfRow, int PositionOfColumn)
         {
             if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.X, PositionOfRow, PositionOfColumn)) return;
-
-            if (clsChessBoard.CheckWin(clsGeneral.fKey.X, clsGeneral.fKey.O, PositionOfRow, PositionOfColumn, ref lstCellWin))
-            {
-                EndGame();
-                return;
-            }
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.X;
@@ -149,16 +144,13 @@ namespace gamecaro.USERCONTROL
             graphics.DrawLine(pen, chessPoint.Location.X, chessPoint.Location.Y, chessPoint.Location.X + clsGeneral.ChessBoard.SizeOfCross, chessPoint.Location.Y - clsGeneral.ChessBoard.SizeOfCross);
 
             SaveImage(chessPoint);
+
+            if (clsChessBoard.CheckWin(clsGeneral.fKey.X, clsGeneral.fKey.O, PositionOfRow, PositionOfColumn, ref lstCellWin))
+                EndGame();
         }
         void DrawCircle(int PositionOfRow, int PositionOfColumn)
         {
             if (!clsChessBoard.CheckEmptyOfChess(clsGeneral.fKey.O, PositionOfRow, PositionOfColumn)) return;
-
-            if (clsChessBoard.CheckWin(clsGeneral.fKey.O, clsGeneral.fKey.X, PositionOfRow, PositionOfColumn, ref lstCellWin))
-            {
-                EndGame();
-                return;
-            }
 
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.O;
@@ -174,6 +166,9 @@ namespace gamecaro.USERCONTROL
             graphics.DrawEllipse(pen, chessPoint.Location.X - clsGeneral.ChessBoard.SizeOfCircle, chessPoint.Location.Y - clsGeneral.ChessBoard.SizeOfCircle, clsGeneral.ChessBoard.SizeOfCircle * 2, clsGeneral.ChessBoard.SizeOfCircle * 2);
 
             SaveImage(chessPoint);
+
+            if (clsChessBoard.CheckWin(clsGeneral.fKey.O, clsGeneral.fKey.X, PositionOfRow, PositionOfColumn, ref lstCellWin))
+                EndGame();
         }
         void DrawLine()
         {
@@ -181,13 +176,13 @@ namespace gamecaro.USERCONTROL
             chessPoint.TypeOfChess = clsGeneral.fKey.Line;
             lstChessPoint.Insert(0, chessPoint);
 
-            Pen pen = new Pen(clsGeneral.ChessBoard.ColorOfCross, 1.5f);
+            Pen pen = new Pen(clsGeneral.ChessBoard.ColorOfLine, 3f);
             Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image);
 
-            Cell cStart = lstCellWin[0];
-            Cell cEnd = lstCellWin[4];
+            Cell cStart = lstCellWin.First();
+            Cell cEnd = lstCellWin.Last();
 
-            graphics.DrawLine(pen, cStart.PositionOfColumn, cStart.PositionOfRow, cEnd.PositionOfColumn * clsGeneral.ChessBoard.SizeOfCell, cEnd.PositionOfRow * clsGeneral.ChessBoard.SizeOfCell);
+            graphics.DrawLine(pen, cStart.PositionOfColumn * clsGeneral.ChessBoard.SizeOfCell, cStart.PositionOfRow * clsGeneral.ChessBoard.SizeOfCell, cEnd.PositionOfColumn * clsGeneral.ChessBoard.SizeOfCell, cEnd.PositionOfRow * clsGeneral.ChessBoard.SizeOfCell);
 
             SaveImage(chessPoint);
         }
@@ -234,6 +229,41 @@ namespace gamecaro.USERCONTROL
                 DrawLine();
                 lstCellWin.Clear();
             }
+        }
+        void TestGame()
+        {
+            //DrawCross(1, 1);
+            //DrawCircle(1, 2);
+            //DrawCircle(1, 3);
+            //DrawCircle(1, 4);
+            //DrawCircle(1, 5);
+            //DrawCross(1, 8);
+            //DrawCircle(1, 7);
+            //DrawCircle(1, 6);
+
+            //DrawCross(1, 2);
+            //DrawCircle(2, 2);
+            //DrawCircle(3, 2);
+            //DrawCircle(4, 2);
+            //DrawCircle(5, 2);
+            //DrawCross(7, 2);
+            //DrawCircle(6, 2);
+
+            //DrawCross(1, 2);
+            //DrawCircle(2, 3);
+            //DrawCircle(3, 4);
+            //DrawCircle(4, 5);
+            //DrawCircle(5, 6);
+            //DrawCross(8, 9);
+            //DrawCircle(6, 7);
+
+            //DrawCross(12, 4);
+            //DrawCircle(11, 5);
+            //DrawCircle(10, 6);
+            //DrawCircle(9, 7);
+            //DrawCircle(8, 8);
+            //DrawCross(5, 11);
+            //DrawCircle(7, 9);
         }
     }
 }
