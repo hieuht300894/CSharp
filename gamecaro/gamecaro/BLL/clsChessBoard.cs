@@ -35,10 +35,10 @@ namespace gamecaro
             clsGeneral.ChessBoard.ListChesses.Clear();
             clsGeneral.ChessBoard.ListChessCheckeds.Clear();
 
-            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = 0, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.EMPTY });
-            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = 0, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.EMPTY });
-            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.EMPTY });
-            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.EMPTY });
+            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = 0, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.OUTLINE });
+            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = 0, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.OUTLINE });
+            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = 0, TypeOfChess = clsGeneral.fKey.OUTLINE });
+            clsGeneral.ChessBoard.ListChesses.Add(new ChessPoint() { PositionOfRow = clsGeneral.ChessBoard.NumberOfRows, PositionOfColumn = clsGeneral.ChessBoard.NumberOfColumns, TypeOfChess = clsGeneral.fKey.OUTLINE });
 
             for (int i = 1; i < clsGeneral.ChessBoard.NumberOfRows; i++)
             {

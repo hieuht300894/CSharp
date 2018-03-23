@@ -228,38 +228,28 @@ namespace gamecaro.USERCONTROL
         }
         void TestGame()
         {
-            //DrawCross(1, 1);
-            //DrawCircle(1, 2);
-            //DrawCircle(1, 3);
-            //DrawCircle(1, 4);
-            //DrawCircle(1, 5);
-            //DrawCross(1, 9);
-            //DrawCircle(1, 7);
-            //DrawCircle(1, 6);
+            clsGeneral.fKey Attack = clsGeneral.fKey.X;
+            clsGeneral.fKey Block = clsGeneral.fKey.O;
+            int PositionOfRow = 0;
+            int PositionOfColumn = 0;
 
-            //DrawCross(1, 2);
-            //DrawCircle(2, 2);
-            //DrawCircle(3, 2);
-            //DrawCircle(4, 2);
-            //DrawCircle(5, 2);
-            //DrawCross(8, 2);
-            //DrawCircle(6, 2);
+            while (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
+            {
+                if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
+                {
+                    Attack = clsGeneral.fKey.O;
+                    Block = clsGeneral.fKey.X;
 
-            //DrawCross(1, 2);
-            //DrawCircle(2, 3);
-            //DrawCircle(3, 4);
-            //DrawCircle(4, 5);
-            //DrawCircle(5, 6);
-            //DrawCross(8, 9);
-            //DrawCircle(6, 7);
+                    DrawCross(PositionOfRow, PositionOfColumn);
+                }
+                else if (Attack == clsGeneral.fKey.O && Block == clsGeneral.fKey.X)
+                {
+                    Attack = clsGeneral.fKey.X;
+                    Block = clsGeneral.fKey.O;
 
-            //DrawCross(12, 4);
-            //DrawCircle(11, 5);
-            //DrawCircle(10, 6);
-            //DrawCircle(9, 7);
-            //DrawCircle(8, 8);
-            //DrawCross(5, 11);
-            //DrawCircle(7, 9);
+                    DrawCircle(PositionOfRow, PositionOfColumn);
+                }
+            }
         }
     }
 }
