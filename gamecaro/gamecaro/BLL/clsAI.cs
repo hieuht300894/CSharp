@@ -17,14 +17,13 @@ namespace gamecaro
 
         public static bool MinMax(ref int PositionOfRow, ref int PositionOfColumn, clsGeneral.fKey Attack, clsGeneral.fKey Block)
         {
-            long Score = long.MinValue;
-
             /*Get chess is empty*/
             List<ChessPoint> lstChesses = new List<ChessPoint>();
             clsGeneral.ChessBoard.ListChesses.Where(x => x.TypeOfChess == clsGeneral.fKey.EMPTY).ToList().ForEach(x => lstChesses.Add((ChessPoint)x.Clone()));
 
             if (lstChesses.Count == 0) return false;
 
+            long Score = long.MinValue;
             foreach (ChessPoint chess in lstChesses)
             {
                 /*Set value*/
@@ -41,15 +40,15 @@ namespace gamecaro
                     PositionOfRow = chess.PositionOfRow;
                     PositionOfColumn = chess.PositionOfColumn;
 
-                    ChessPoint _chess = lstChesses.FirstOrDefault(x => x.PositionOfRow == chess.PositionOfRow && x.PositionOfColumn == chess.PositionOfColumn);
-                    _chess.TypeOfChess = Attack;
+                    //ChessPoint _chess = lstChesses.FirstOrDefault(x => x.PositionOfRow == chess.PositionOfRow && x.PositionOfColumn == chess.PositionOfColumn);
+                    //_chess.TypeOfChess = Attack;
 
-                    if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
-                        CheckDepth(2, lstChesses, clsGeneral.fKey.O, clsGeneral.fKey.X);
-                    else if (Attack == clsGeneral.fKey.O && Block == clsGeneral.fKey.X)
-                        CheckDepth(2, lstChesses, clsGeneral.fKey.X, clsGeneral.fKey.O);
+                    //if (Attack == clsGeneral.fKey.X && Block == clsGeneral.fKey.O)
+                    //    CheckDepth(2, lstChesses, clsGeneral.fKey.O, clsGeneral.fKey.X);
+                    //else if (Attack == clsGeneral.fKey.O && Block == clsGeneral.fKey.X)
+                    //    CheckDepth(2, lstChesses, clsGeneral.fKey.X, clsGeneral.fKey.O);
 
-                    _chess.TypeOfChess = clsGeneral.fKey.EMPTY;
+                    //_chess.TypeOfChess = clsGeneral.fKey.EMPTY;
                 }
             }
 
@@ -66,6 +65,7 @@ namespace gamecaro
 
             if (lstEmptyChesses.Count == 0) return;
 
+            long Score = long.MinValue;
             foreach (ChessPoint chess in lstEmptyChesses)
             {
                 /*Set value*/

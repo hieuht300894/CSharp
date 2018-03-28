@@ -237,8 +237,8 @@ namespace gamecaro.USERCONTROL
         }
         void TestGame()
         {
-            clsGeneral.fKey Attack = clsGeneral.fKey.X;
-            clsGeneral.fKey Block = clsGeneral.fKey.O;
+            clsGeneral.fKey Attack = clsGeneral.fKey.O;
+            clsGeneral.fKey Block = clsGeneral.fKey.X;
 
             System.Timers.Timer timer = new System.Timers.Timer() { AutoReset = true, Interval = 50 };
             timer.Elapsed -= (s, e) => Timer_Elapsed(s, e, ref Attack, ref Block);
@@ -253,8 +253,6 @@ namespace gamecaro.USERCONTROL
 
             int PositionOfRow = 0;
             int PositionOfColumn = 0;
-
-         
 
             if (!clsAI.MinMax(ref PositionOfRow, ref PositionOfColumn, Attack, Block))
                 return;
