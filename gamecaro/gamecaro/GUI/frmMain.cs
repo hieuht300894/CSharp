@@ -21,21 +21,40 @@ namespace gamecaro
 
         protected override void FrmBase_Load(object sender, EventArgs e)
         {
-            //BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
+            ////BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
+            ////board.Dock = DockStyle.Fill;
+            ////board._SetPicture = new BoardPlayerAndPlayer.SetPicture(new Action<Image>((img) =>
+            ////{
+            ////    pictureBox1.Image = img;
+            ////}));
+            ////tpBoard.Controls.Add(board, 0, 0);
+
+            //BoardPlayerAndComputer board = new BoardPlayerAndComputer();
             //board.Dock = DockStyle.Fill;
-            //board._SetPicture = new BoardPlayerAndPlayer.SetPicture(new Action<Image>((img) =>
-            //{
-            //    pictureBox1.Image = img;
-            //}));
+            ////board._SetPicture = new BoardPlayerAndComputer.SetPicture(new Action<Image>((img) =>
+            ////{
+            ////    pictureBox1.Image = img;
+            ////}));
             //tpBoard.Controls.Add(board, 0, 0);
 
-            BoardPlayerAndComputer board = new BoardPlayerAndComputer();
-            board.Dock = DockStyle.Fill;
-            //board._SetPicture = new BoardPlayerAndComputer.SetPicture(new Action<Image>((img) =>
-            //{
-            //    pictureBox1.Image = img;
-            //}));
-            tpBoard.Controls.Add(board, 0, 0);
+            EnableEvent();
+        }
+
+        void EnableEvent()
+        {
+            mnServerConfig.Click += MnServerConfig_Click;
+            mnClientConfig.Click += MnClientConfig_Click;
+        }
+
+        private void MnClientConfig_Click(object sender, EventArgs e)
+        {
+            frmClientConfig frm = new frmClientConfig();
+            frm.ShowDialog(this);
+        }
+        private void MnServerConfig_Click(object sender, EventArgs e)
+        {
+            frmServerConfig frm = new frmServerConfig();
+            frm.ShowDialog(this);
         }
 
         //private struct NuocDi

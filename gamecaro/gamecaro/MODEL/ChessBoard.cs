@@ -24,6 +24,6 @@ namespace gamecaro
         public List<ChessPoint> ListChesses { get; set; } = new List<ChessPoint>();
         public List<ChessPoint> ListChessCheckeds { get; set; } = new List<ChessPoint>();
         public List<ChessPoint> ListChessUnCheckeds { get; set; } = new List<ChessPoint>();
-        public List<ChessPoint> ListChessWins = new List<ChessPoint>();
+        public List<ChessPoint> ListChessWins { get; set; } = new List<ChessPoint>();
     }
 }

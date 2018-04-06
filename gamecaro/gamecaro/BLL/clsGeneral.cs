@@ -64,11 +64,16 @@ namespace gamecaro
             //NO_CONFIGURATION = 29,
             //HOST = 30,
         }
+        public static string DefaultIP { get; private set; } = clsNetwork.LoadIPv4();
+        public static int DefaultServerPort { get; private set; } = 5000;
+        public static int DefaultClientPort { get; private set; } = 5001;
 
         public static Regex regexIPAddress { get { return new Regex(@"(\d{3}|\d{2}|\d{1})[.](\d{3}|\d{2}|\d{1})[.](\d{3}|\d{2}|\d{1})[.](\d{3}|\d{2}|\d{1})"); } }
         public static Regex regexAddress { get { return new Regex(@"(?<IP>(\d{3}|\d{2}|\d{1})[.](\d{3}|\d{2}|\d{1})[.](\d{3}|\d{2}|\d{1})[.](\d{3}|\d{2}|\d{1}))[:](?<Port>(\d{5}|\d{4}))"); } }
         public static Regex regexCommand { get { return new Regex(string.Format("{0}{1}{2}", @"([[](?<Key>\w+)[]])([=])([[]]|([[](?<Value>[a-zA-Z0-9 ~`!@#$%^&*()_+\-=\[\]{};':", "\"", @"\\|,.<>\/?]+)[]]))")); } }
 
         public static ChessBoard ChessBoard { get; set; } = new ChessBoard();
+        public static ServerConfig ServerConfig { get; set; } = new ServerConfig();
+        public static ClientConfig ClientConfig { get; set; } = new ClientConfig();
     }
 }
