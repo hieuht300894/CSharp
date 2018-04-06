@@ -37,7 +37,8 @@ namespace gamecaro
             txtIPClient.Text = clsGeneral.ClientConfig.IPClient.IsEmpty() ? clsGeneral.DefaultIP : clsGeneral.ClientConfig.IPClient;
             numPortClient.Value = clsGeneral.ClientConfig.PortClient > 0 ? clsGeneral.ClientConfig.PortClient : clsGeneral.DefaultClientPort;
 
-            txtIPServer.Text = clsGeneral.ClientConfig.IPServer;
+            //txtIPServer.Text = clsGeneral.ClientConfig.IPServer;
+            txtIPServer.Text = clsGeneral.ClientConfig.IPServer.IsEmpty() ? clsGeneral.DefaultIP : clsGeneral.ClientConfig.IPServer;
             numPortServer.Value = clsGeneral.ClientConfig.PortServer > 0 ? clsGeneral.ClientConfig.PortServer : clsGeneral.DefaultServerPort;
         }
         bool ValidData()
@@ -124,14 +125,10 @@ namespace gamecaro
                 clsGeneral.ClientConfig.IPServer = txtIPServer.Text.Trim();
                 clsGeneral.ClientConfig.PortServer = (int)numPortServer.Value;
 
-                SaveLog();
                 ReloadData?.Invoke(true);
             }
 
             return true;
-        }
-        void SaveLog()
-        {
         }
         void CustomForm()
         {

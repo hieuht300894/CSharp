@@ -40,6 +40,9 @@
             this.mnEndGame = new System.Windows.Forms.ToolStripMenuItem();
             this.mnSave = new System.Windows.Forms.ToolStripMenuItem();
             this.mnOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnServerConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnClientConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.mnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnRedo = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,9 +52,6 @@
             this.mnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tpMain = new System.Windows.Forms.TableLayoutPanel();
             this.tpBoard = new System.Windows.Forms.TableLayoutPanel();
-            this.mnOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnServerConfig = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnClientConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.SuspendLayout();
@@ -94,7 +94,7 @@
             this.comVsHumanToolStripMenuItem,
             this.toolStripCb_time});
             this.mnNewGame.Name = "mnNewGame";
-            this.mnNewGame.Size = new System.Drawing.Size(152, 22);
+            this.mnNewGame.Size = new System.Drawing.Size(150, 22);
             this.mnNewGame.Text = "New Game";
             // 
             // humanVsHumanToolStripMenuItem
@@ -126,25 +126,46 @@
             // mnEndGame
             // 
             this.mnEndGame.Name = "mnEndGame";
-            this.mnEndGame.Size = new System.Drawing.Size(152, 22);
+            this.mnEndGame.Size = new System.Drawing.Size(150, 22);
             this.mnEndGame.Text = "End (F3)";
             // 
             // mnSave
             // 
             this.mnSave.Name = "mnSave";
-            this.mnSave.Size = new System.Drawing.Size(152, 22);
+            this.mnSave.Size = new System.Drawing.Size(150, 22);
             this.mnSave.Text = "Save (Ctrl + S)";
             // 
             // mnOpen
             // 
             this.mnOpen.Name = "mnOpen";
-            this.mnOpen.Size = new System.Drawing.Size(152, 22);
+            this.mnOpen.Size = new System.Drawing.Size(150, 22);
             this.mnOpen.Text = "Open (Ctrl+O)";
+            // 
+            // mnOption
+            // 
+            this.mnOption.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnServerConfig,
+            this.mnClientConfig});
+            this.mnOption.Name = "mnOption";
+            this.mnOption.Size = new System.Drawing.Size(150, 22);
+            this.mnOption.Text = "Options";
+            // 
+            // mnServerConfig
+            // 
+            this.mnServerConfig.Name = "mnServerConfig";
+            this.mnServerConfig.Size = new System.Drawing.Size(106, 22);
+            this.mnServerConfig.Text = "Server";
+            // 
+            // mnClientConfig
+            // 
+            this.mnClientConfig.Name = "mnClientConfig";
+            this.mnClientConfig.Size = new System.Drawing.Size(106, 22);
+            this.mnClientConfig.Text = "Client";
             // 
             // mnExit
             // 
             this.mnExit.Name = "mnExit";
-            this.mnExit.Size = new System.Drawing.Size(152, 22);
+            this.mnExit.Size = new System.Drawing.Size(150, 22);
             this.mnExit.Text = "Exit";
             // 
             // mnEdit
@@ -218,27 +239,6 @@
             this.tpBoard.Size = new System.Drawing.Size(978, 431);
             this.tpBoard.TabIndex = 2;
             // 
-            // mnOption
-            // 
-            this.mnOption.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnServerConfig,
-            this.mnClientConfig});
-            this.mnOption.Name = "mnOption";
-            this.mnOption.Size = new System.Drawing.Size(152, 22);
-            this.mnOption.Text = "Options";
-            // 
-            // mnServerConfig
-            // 
-            this.mnServerConfig.Name = "mnServerConfig";
-            this.mnServerConfig.Size = new System.Drawing.Size(152, 22);
-            this.mnServerConfig.Text = "Server";
-            // 
-            // mnClientConfig
-            // 
-            this.mnClientConfig.Name = "mnClientConfig";
-            this.mnClientConfig.Size = new System.Drawing.Size(152, 22);
-            this.mnClientConfig.Text = "Client";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,6 +249,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.Text = "Tic Tac Toe Game";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tpMain.ResumeLayout(false);

@@ -97,6 +97,7 @@ namespace gamecaro.USERCONTROL
             ChessPoint chessPoint = new ChessPoint();
             chessPoint.TypeOfChess = clsGeneral.fKey.BOARD;
             clsGeneral.ChessBoard.ListChesses.Insert(0, chessPoint);
+            clsGeneral.ChessBoard.ListChessCheckeds.Insert(0, chessPoint);
 
             Pen pen = new Pen(Color.Black);
             Graphics graphics = Graphics.FromImage((Bitmap)pbMain.Image);
@@ -188,11 +189,11 @@ namespace gamecaro.USERCONTROL
         {
             pbMain.Invalidate();
 
-            using (Graphics graphics = Graphics.FromImage(chessPoint.Image))
-            {
-                graphics.DrawImage(pbMain.Image, new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), GraphicsUnit.Pixel);
-            }
-            _SetPicture?.Invoke(chessPoint.Image);
+            //using (Graphics graphics = Graphics.FromImage(chessPoint.Image))
+            //{
+            //    graphics.DrawImage(pbMain.Image, new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), GraphicsUnit.Pixel);
+            //}
+            //_SetPicture?.Invoke(chessPoint.Image);
         }
         void Undo()
         {
@@ -203,13 +204,13 @@ namespace gamecaro.USERCONTROL
 
             Graphics graphics = Graphics.FromImage(pbMain.Image);
             graphics.Clear(pbMain.BackColor);
-            graphics.DrawImage(chessPoint.LastCheckPoint.Image, new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), GraphicsUnit.Pixel);
+            //graphics.DrawImage(chessPoint.LastCheckPoint.Image, new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), new Rectangle(0, 0, clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height), GraphicsUnit.Pixel);
 
             pbMain.Invalidate();
 
             clsChessBoard.RemoveTypeOfChess(chessPoint.PositionOfRow, chessPoint.PositionOfColumn);
 
-            _SetPicture?.Invoke(chessPoint.LastCheckPoint.Image);
+            //_SetPicture?.Invoke(chessPoint.LastCheckPoint.Image);
         }
         void StartGame()
         {

@@ -21,13 +21,13 @@ namespace gamecaro
 
         protected override void FrmBase_Load(object sender, EventArgs e)
         {
-            ////BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
-            ////board.Dock = DockStyle.Fill;
-            ////board._SetPicture = new BoardPlayerAndPlayer.SetPicture(new Action<Image>((img) =>
-            ////{
-            ////    pictureBox1.Image = img;
-            ////}));
-            ////tpBoard.Controls.Add(board, 0, 0);
+            //BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
+            //board.Dock = DockStyle.Fill;
+            //board._SetPicture = new BoardPlayerAndPlayer.SetPicture(new Action<Image>((img) =>
+            //{
+            //    pictureBox1.Image = img;
+            //}));
+            //tpBoard.Controls.Add(board, 0, 0);
 
             //BoardPlayerAndComputer board = new BoardPlayerAndComputer();
             //board.Dock = DockStyle.Fill;
@@ -36,6 +36,10 @@ namespace gamecaro
             ////    pictureBox1.Image = img;
             ////}));
             //tpBoard.Controls.Add(board, 0, 0);
+
+            BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
+            board.Dock = DockStyle.Fill;
+            tpBoard.Controls.Add(board, 0, 0);
 
             EnableEvent();
         }
@@ -53,8 +57,18 @@ namespace gamecaro
         }
         private void MnServerConfig_Click(object sender, EventArgs e)
         {
+            bool IsChanged = false;
+            bool IsStart = clsGeneral.ServerConfig.IsStart;
+            Action<bool> reload = (bRe) => { IsChanged = bRe; };
+
             frmServerConfig frm = new frmServerConfig();
+            frm.ReloadData = new frmServerConfig.LoadData(reload);
             frm.ShowDialog(this);
+
+            if (IsChanged && IsStart)
+            {
+
+            }
         }
 
         //private struct NuocDi

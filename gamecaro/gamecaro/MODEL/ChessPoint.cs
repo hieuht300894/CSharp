@@ -14,7 +14,7 @@ namespace gamecaro
         public Point Location { get; set; } = new Point();
         public int PositionOfRow { get; set; }
         public int PositionOfColumn { get; set; }
-        public Image Image { get; set; } = new Bitmap(clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height);
+        //public Image Image { get; set; } = new Bitmap(clsGeneral.ChessBoard.SizeOfBoard.Width, clsGeneral.ChessBoard.SizeOfBoard.Height);
         public ChessPoint LastCheckPoint { get; set; }
         public long Score { get; set; }
 

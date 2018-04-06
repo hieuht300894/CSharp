@@ -71,8 +71,8 @@ namespace gamecaro
 
             if (!clsGeneral.ServerConfig.IPServer.Equals(txtIP.Text.Trim()) || clsGeneral.ServerConfig.PortServer != (int)numPort.Value)
             {
-                //clsServer.StatusChanged -= clsGeneral.mainServer_StatusChanged;
-                //clsGeneral.MainServer?.CloseListening();
+                clsServer.StatusChanged -= clsGeneral.ServerConfig.mainServer_StatusChanged;
+                clsGeneral.ServerConfig.MainServer?.CloseListening();
 
                 clsGeneral.ServerConfig.IPServer = txtIP.Text.Trim();
                 clsGeneral.ServerConfig.PortServer = (int)numPort.Value;
