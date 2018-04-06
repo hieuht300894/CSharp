@@ -21,6 +21,7 @@ namespace LearnJapanese
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            var str = clsData.GetData().SerializeObjectToXML();
             dataGridView1.DataSource = clsData.GetData();
         }
     }

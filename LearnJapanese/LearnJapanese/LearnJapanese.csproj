@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\clsData.cs" />
+    <Compile Include="BLL\clsExtension.cs" />
     <Compile Include="BLL\clsGeneral.cs" />
     <Compile Include="BLL\clsIO.cs" />
     <Compile Include="GUI\frmMain.cs">
