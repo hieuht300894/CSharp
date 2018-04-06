@@ -214,6 +214,8 @@ namespace gamecaro.USERCONTROL
         }
         void StartGame()
         {
+            StartServer();
+
             pbMain.Click += pbMain_Click;
             PreviewKeyDown += BoardPlayerAndPlayer_PreviewKeyDown;
         }
@@ -262,6 +264,45 @@ namespace gamecaro.USERCONTROL
             //DrawCircle(8, 8);
             //DrawCross(5, 11);
             //DrawCircle(7, 9);
+        }
+        void StartServer()
+        {
+            clsGeneral.ServerConfig.updateStatus = new ServerConfig.UpdateStatusCallback(UpdateStatus);
+
+            // Create a new instance of the object
+            clsGeneral.ServerConfig.MainServer = new clsServer(clsGeneral.ServerConfig.AddressServer.ParseAddress());
+
+            // Hook the StatusChanged event handler to mainServer_StatusChanged
+            clsServer.StatusChanged -= clsGeneral.ServerConfig.mainServer_StatusChanged;
+            clsServer.StatusChanged += clsGeneral.ServerConfig.mainServer_StatusChanged;
+
+            // Start listening for connections
+            clsGeneral.ServerConfig.MainServer?.StartListening();
+        }
+        void UpdateStatus(string address, string msg)
+        {
+            string key = string.Empty;
+            string value = string.Empty;
+            msg.ParseCommand(out key, out value);
+
+            if (!key.IsEmpty() && !value.IsEmpty())
+            {
+                if (key.Equals(clsGeneral.fKey.CONNECTING.ToString()))
+                {
+                }
+                else if (key.Equals(clsGeneral.fKey.REGISTER.ToString()))
+                {
+                }
+                else if (key.Equals(clsGeneral.fKey.USERNAME.ToString()))
+                {
+                }
+                else if (key.Equals(clsGeneral.fKey.ERROR.ToString()))
+                {
+                }
+                else if (key.Equals(clsGeneral.fKey.RESULT.ToString()))
+                {
+                }
+            }
         }
     }
 }

@@ -43,6 +43,11 @@ namespace gamecaro
 
             EnableEvent();
         }
+        protected override void FrmBase_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            clsServer.StatusChanged -= clsGeneral.ServerConfig.mainServer_StatusChanged;
+            clsGeneral.ServerConfig.MainServer?.CloseListening();
+        }
 
         void EnableEvent()
         {
@@ -65,9 +70,13 @@ namespace gamecaro
             frm.ReloadData = new frmServerConfig.LoadData(reload);
             frm.ShowDialog(this);
 
-            if (IsChanged && IsStart)
+            if (IsChanged && (IsStart || this.showConfirm(Caption: "Turn on server?")))
             {
+                tpBoard.Controls.Clear();
 
+                BoardPlayerAndPlayer board = new BoardPlayerAndPlayer();
+                board.Dock = DockStyle.Fill;
+                tpBoard.Controls.Add(board, 0, 0);
             }
         }
 
