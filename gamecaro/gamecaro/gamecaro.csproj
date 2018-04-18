@@ -50,7 +50,20 @@
     <Compile Include="BLL\clsChessBoard.cs" />
     <Compile Include="BLL\clsExtension.cs" />
     <Compile Include="BLL\clsGeneral.cs" />
+    <Compile Include="BLL\clsNetwork.cs" />
     <Compile Include="BLL\clsServer.cs" />
+    <Compile Include="GUI\frmClientConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmClientConfig.designer.cs">
+      <DependentUpon>frmClientConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmServerConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmServerConfig.designer.cs">
+      <DependentUpon>frmServerConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\frmBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +81,8 @@
     <Compile Include="MODEL\Cell.cs" />
     <Compile Include="MODEL\ChessBoard.cs" />
     <Compile Include="MODEL\ChessPoint.cs" />
+    <Compile Include="MODEL\ClientConfig.cs" />
+    <Compile Include="MODEL\ServerConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MODEL\ToaDo.cs" />
@@ -83,6 +98,12 @@
     <Compile Include="USERCONTROL\BoardPlayerAndPlayer.Designer.cs">
       <DependentUpon>BoardPlayerAndPlayer.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GUI\frmClientConfig.resx">
+      <DependentUpon>frmClientConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\frmServerConfig.resx">
+      <DependentUpon>frmServerConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmBase.resx">
       <DependentUpon>frmBase.cs</DependentUpon>
     </EmbeddedResource>
