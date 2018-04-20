@@ -16,6 +16,8 @@ namespace OnlineShop
             clsGeneral.connectionString = setting != null ? setting.ConnectionString : string.Empty;
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<zModel, CustomConfiguration>());
+            zModel db = new zModel();
+            db.Database.Initialize(false);
         }
     }
 }

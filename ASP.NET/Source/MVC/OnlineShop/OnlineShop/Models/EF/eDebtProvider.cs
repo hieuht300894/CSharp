@@ -3,7 +3,7 @@ using System;
 
 namespace OnlineShop.Models
 {
-    public class eCongNoProvider : Master, IProvider
+    public class eDebtProvider : Master, IProvider
     {
         public DateTime Date { get; set; }
         public int IDProvider { get; set; }
