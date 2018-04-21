@@ -6,7 +6,7 @@ using System.Web;
 
 namespace OnlineShop
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IRepositoryCollection
     {
         public zModel Context { get; set; }
 
@@ -35,6 +35,11 @@ namespace OnlineShop
         {
             if (Context.Database.CurrentTransaction != null)
                 Context.Database.CurrentTransaction.Rollback();
+        }
+
+        public Repository<T> GetRepository<T>() where T : class, new()
+        {
+            return new Repository<T>(Context);
         }
     }
 }

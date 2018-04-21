@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepositoryCollection<T> where T : class, new()
     {
         private zModel Context;
 
@@ -18,47 +18,32 @@ namespace OnlineShop
 
         public List<T> GetAll()
         {
-            throw new System.NotImplementedException();
+            return new List<T>();
         }
 
         public T FindItem(object ID)
         {
-            throw new System.NotImplementedException();
+            return new T();
         }
 
         public bool AddOrUpdate(T Item)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool AddOrUpdate(params T[] Items)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool Delete(T Item)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool Delete(params T[] Items)
         {
-            throw new System.NotImplementedException();
-        }
-    }
-
-    public class RepositoryCollection : IRepositoryCollection
-    {
-        private zModel Context;
-
-        public RepositoryCollection(zModel db)
-        {
-            this.Context = db;
-        }
-
-        public Repository<T> GetRepository<T>() where T : class
-        {
-            return new Repository<T>(Context);
+            return true;
         }
     }
 }

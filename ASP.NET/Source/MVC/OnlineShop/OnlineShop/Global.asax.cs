@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Unity.Lifetime;
 
 namespace OnlineShop
 {
@@ -17,6 +18,9 @@ namespace OnlineShop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            UnityMvcActivator.Start();
+            UnityConfig.Container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork), "UnitOfWork", new HierarchicalLifetimeManager());
         }
     }
 }

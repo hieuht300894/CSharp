@@ -7,6 +7,6 @@ namespace OnlineShop
 {
     public interface IRepositoryCollection
     {
-        Repository<T> GetRepository<T>() where T : class;
+        Repository<T> GetRepository<T>() where T : class, new();
     }
 }
