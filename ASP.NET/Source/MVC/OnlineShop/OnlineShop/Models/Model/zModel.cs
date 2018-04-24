@@ -53,10 +53,6 @@ namespace OnlineShop
         {
         }
 
-        public zModel(string nameOrConnectionString) : base(clsGeneral.connectionString ?? "OnlineShopDbContext")
-        {
-        }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             #region PrimaryKey
