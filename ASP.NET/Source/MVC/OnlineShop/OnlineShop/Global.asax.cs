@@ -18,9 +18,7 @@ namespace OnlineShop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
             UnityMvcActivator.Start();
-            UnityConfig.Container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork), "UnitOfWork", new HierarchicalLifetimeManager());
         }
     }
 }
