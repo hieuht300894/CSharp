@@ -6,40 +6,76 @@ using System.Web;
 
 namespace OnlineShop
 {
-    public class UnitOfWork : IUnitOfWork, IRepositoryCollection
+    public class UnitOfWork : IUnitOfWork, IRepositoryCollection, IDisposable
     {
-        public zModel Context { get; set; }
+        private Dictionary<string, object> repositories;
+        private bool disposed;
+        private zModel context;
+
+        public UnitOfWork()
+        {
+            context = new zModel();
+        }
 
         public UnitOfWork(zModel db)
         {
-            Context = db;
+            context = db;
         }
 
         public void BeginTransaction()
         {
-            Context.Database.BeginTransaction();
+            context.Database.BeginTransaction();
         }
 
-        public async Task<int> SaveChanges()
+        public int SaveChanges()
         {
-            return await Context.SaveChangesAsync();
+            return context.SaveChanges();
         }
 
         public void CommitTransaction()
         {
-            if (Context.Database.CurrentTransaction != null)
-                Context.Database.CurrentTransaction.Commit();
+            if (context.Database.CurrentTransaction != null)
+                context.Database.CurrentTransaction.Commit();
         }
 
         public void RollbackTransaction()
         {
-            if (Context.Database.CurrentTransaction != null)
-                Context.Database.CurrentTransaction.Rollback();
+            if (context.Database.CurrentTransaction != null)
+                context.Database.CurrentTransaction.Rollback();
         }
 
         public Repository<T> GetRepository<T>() where T : class, new()
         {
-            return new Repository<T>(Context);
+            if (repositories == null)
+                repositories = new Dictionary<string, object>();
+
+            string type = typeof(T).Name;
+
+            if (!repositories.ContainsKey(type))
+            {
+                var repositoryType = typeof(Repository<>);
+                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), context);
+                repositories.Add(type, repositoryInstance);
+            }
+            return (Repository<T>)repositories[type];
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+            }
+            disposed = true;
         }
     }
 }

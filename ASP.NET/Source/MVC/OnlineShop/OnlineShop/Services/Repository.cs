@@ -1,49 +1,66 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineShop
 {
-    public class Repository<T> : IRepositoryCollection<T> where T : class, new()
+    public class Repository<T> : IRepository<T> where T : class, new()
     {
-        private zModel Context;
+        private zModel context = null;
 
         public Repository()
         {
+            context = new zModel();
         }
 
         public Repository(zModel db)
         {
-            Context = db;
+            context = db;
         }
 
         public List<T> GetAll()
         {
-            return new List<T>();
+            return context.Set<T>().ToList();
         }
 
         public T FindItem(object ID)
         {
-            return new T();
+            return context.Set<T>().Find(ID);
         }
 
-        public bool AddOrUpdate(T Item)
+        public void AddOrUpdate(T item)
         {
-            return true;
+            if (item == null)
+                throw new ArgumentNullException();
+
+            context.Set<T>().AddOrUpdate(item);
         }
 
-        public bool AddOrUpdate(params T[] Items)
+        public void AddOrUpdate(params T[] items)
         {
-            return true;
+            if (items == null || items.Length == 0)
+                throw new ArgumentNullException();
+
+            context.Set<T>().AddOrUpdate(items);
         }
 
-        public bool Delete(T Item)
+        public void Delete(T item)
         {
-            return true;
+            if (item == null)
+                throw new ArgumentNullException();
+
+            context.Set<T>().Remove(item);
         }
 
-        public bool Delete(params T[] Items)
+        public void Delete(params T[] items)
         {
-            return true;
+            if (items == null || items.Length == 0)
+                throw new ArgumentNullException();
+
+            context.Set<T>().RemoveRange(items);
         }
     }
 }

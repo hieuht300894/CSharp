@@ -44,7 +44,8 @@ namespace OnlineShop
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork), new InjectionConstructor(typeof(zModel)));
+            //container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork), new InjectionConstructor(typeof(zModel)));
+            container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork));
             container.RegisterType(typeof(BaseController<>), typeof(BaseController<>), new InjectionConstructor(typeof(UnitOfWork)));
         }
     }

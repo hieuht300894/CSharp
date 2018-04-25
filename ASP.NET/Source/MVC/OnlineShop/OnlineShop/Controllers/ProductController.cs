@@ -13,9 +13,29 @@ namespace OnlineShop.Controllers
         {
         }
 
-        public ActionResult GetAll()
+        public override ActionResult GetAll()
         {
-            return View();
+            return base.GetAll();
+        }
+
+        public override ActionResult FindByID(int? id)
+        {
+            return base.FindByID(id);
+        }
+
+        public override ActionResult InsertItem(eProduct item)
+        {
+            return base.InsertItem(item);
+        }
+
+        public override ActionResult UpdateItem(eProduct item)
+        {
+            return base.UpdateItem(item);
+        }
+
+        public override ActionResult DeleteItem(eProduct item)
+        {
+            return base.DeleteItem(item);
         }
     }
 }
