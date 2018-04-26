@@ -1,8 +1,41 @@
-﻿
+﻿@using System.Linq;
+
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td>Code</td>
+            <td>Name</td>
+            <td>Color</td>
+            <td>Unit</td>
+            <td>Size</td>
+            <td>Note</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (OnlineShop.Models.eProduct item in Model)
+            {
+                <tr>
+                    <td>@item.Code</td>
+                    <td>@item.Name</td>
+                    <td>@item.ColorName</td>
+                    <td>@item.UnitName</td>
+                    <td>@item.Size</td>
+                    <td>@item.Note</td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">Total rows: @((Model as List<OnlineShop.Models.eProduct>).Count)</td>
+        </tr>
+    </tfoot>
+</table>
 

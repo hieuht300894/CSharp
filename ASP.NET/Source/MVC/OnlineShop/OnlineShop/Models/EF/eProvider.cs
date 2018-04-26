@@ -8,7 +8,7 @@ namespace OnlineShop.Models
         public string Phone { get; set; }
         public string ContactBy { get; set; }
         public int IDCountry { get; set; }
-        public string CodeCountry { get; set; }
-        public string NameCountry { get; set; }
+        public string CountryCode { get; set; }
+        public string CountryName { get; set; }
     }
 }

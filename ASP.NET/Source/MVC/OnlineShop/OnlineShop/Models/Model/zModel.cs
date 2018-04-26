@@ -99,8 +99,8 @@ namespace OnlineShop
             modelBuilder.Entity<eCountry>().Ignore(x => x.PostalCode);
             modelBuilder.Entity<eCountry>().Ignore(x => x.LocationCode);
             modelBuilder.Entity<eCountry>().Ignore(x => x.ZipCode);
-            modelBuilder.Entity<eCountry>().Ignore(x => x.CodeCountry);
-            modelBuilder.Entity<eCountry>().Ignore(x => x.CodeType);
+            modelBuilder.Entity<eCountry>().Ignore(x => x.CountryCode);
+            modelBuilder.Entity<eCountry>().Ignore(x => x.TypeCode);
             modelBuilder.Entity<eCountry>().Ignore(x => x.Code);
             modelBuilder.Entity<eCountry>().Ignore(x => x.CreatedDate);
             modelBuilder.Entity<eCountry>().Ignore(x => x.CreatedBy);

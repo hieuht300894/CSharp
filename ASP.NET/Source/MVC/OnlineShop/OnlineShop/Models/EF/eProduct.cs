@@ -8,7 +8,7 @@
         public string ColorName { get; set; }
         public string Size { get; set; }
         public int IDUnit { get; set; }
-        public string CodeUnit { get; set; }
-        public string NameUnit { get; set; }
+        public string UnitCode { get; set; }
+        public string UnitName { get; set; }
     }
 }

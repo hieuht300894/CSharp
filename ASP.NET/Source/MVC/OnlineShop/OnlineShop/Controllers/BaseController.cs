@@ -22,9 +22,13 @@ namespace OnlineShop
 
         public virtual ActionResult Detail(int? id)
         {
-            if (id.HasValue)
-                return View(Instance.GetRepository<T>().FindItem(id) ?? new T());
-            return View(new T());
+            if (id == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+
+            if (Instance.GetRepository<T>().FindItem(id.Value) == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+
+            return View();
         }
 
         public virtual ActionResult Create()
@@ -32,8 +36,14 @@ namespace OnlineShop
             return View();
         }
 
-        public virtual ActionResult Edit()
+        public virtual ActionResult Edit(int? id)
         {
+            if (id == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+
+            if (Instance.GetRepository<T>().FindItem(id.Value) == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+
             return View();
         }
 

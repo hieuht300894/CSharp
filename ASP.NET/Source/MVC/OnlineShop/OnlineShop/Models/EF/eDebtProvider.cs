@@ -7,8 +7,8 @@ namespace OnlineShop.Models
     {
         public DateTime Date { get; set; }
         public int IDProvider { get; set; }
-        public string CodeProvider { get; set; }
-        public string NameProvider { get; set; }
+        public string ProviderCode { get; set; }
+        public string ProviderName { get; set; }
         public decimal Amount { get; set; }
         public decimal VAT { get; set; }
         public decimal Discount { get; set; }

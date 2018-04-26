@@ -5,8 +5,8 @@ namespace OnlineShop.Models
     public class xPermissionDetail : Master, IPermissionCategory, IPermission
     {
         public int IDPermissionCategory { get ; set ; }
-        public string CodePermissionCategory { get ; set ; }
-        public string NamePermissionCategory { get ; set ; }
+        public string PermissionCategoryCode { get ; set ; }
+        public string PermissionCategoryName { get ; set ; }
         public int IDPermission { get ; set ; }
         public string Controller { get ; set ; }
         public string Action { get ; set ; }

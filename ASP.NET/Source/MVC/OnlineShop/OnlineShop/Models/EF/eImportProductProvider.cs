@@ -8,8 +8,8 @@ namespace OnlineShop.Models
         public string CodeNo { get; set; }
         public System.DateTime ImportDate { get; set; }
         public int IDProvider { get; set; }
-        public string CodeProvider { get; set; }
-        public string NameProvider { get; set; }
+        public string ProviderCode { get; set; }
+        public string ProviderName { get; set; }
         public decimal Quantity { get; set; }
         public decimal Amount { get; set; }
         public decimal VAT { get; set; }
