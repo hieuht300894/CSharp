@@ -9,8 +9,8 @@ namespace OnlineShop.Models
     public class Detail
     {
         public Int32 KeyID { get; set; } = AutoGenerateID.KeyID;
-        public String GhiChu { get; set; } = string.Empty;
-        public Int32 TrangThai { get; set; } = 1;
-        public Boolean MacDinh { get; set; }
+        public String Note { get; set; } = string.Empty;
+        public Int32 Status { get; set; } = 1;
+        public Boolean IsDefault { get; set; }
     }
 }

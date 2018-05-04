@@ -18,28 +18,44 @@ namespace OnlineShop.Controllers
             return View();
         }
 
-        public ActionResult CheckLogin(LoginRequest login)
+        [HttpPost]
+        public ActionResult SignIn(LoginRequest login)
         {
-            bool IsSuccess = true;
+            bool IsValid = true;
 
             if (login == null)
             {
                 ModelState.AddModelError("", "Đăng nhập không thành công.");
-                IsSuccess = false;
+                IsValid = false;
             }
             if (login.Username.IsEmpty())
             {
-                ModelState.AddModelError(nameof(login.Username), "Vui lòng nhập username.");
-                IsSuccess = false;
+                ModelState.AddModelError(nameof(login.Username), "Vui lòng nhập tài khoản.");
+                IsValid = false;
             }
             if (login.Password.IsEmpty())
             {
-                ModelState.AddModelError(nameof(login.Password), "Vui lòng nhập password.");
-                IsSuccess = false;
+                ModelState.AddModelError(nameof(login.Password), "Vui lòng nhập mật khẩu.");
+                IsValid = false;
             }
 
-            if (IsSuccess)
-                return RedirectToAction("Index", "Home");
+            if (IsValid)
+            {
+                clsEnum.fLogin res = Instance.CheckLogin(login.Username, login.Password);
+                switch (res)
+                {
+                    case clsEnum.fLogin.NotFound:
+                        ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                        goto default;
+                    case clsEnum.fLogin.Disable:
+                        ModelState.AddModelError("", "Tài khoản đã bị khóa.");
+                        goto default;
+                    case clsEnum.fLogin.Success:
+                        return RedirectToAction("Index", "Home");
+                    default:
+                        return View("Index");
+                }
+            }
             return View("Index");
         }
     }
