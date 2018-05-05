@@ -18,6 +18,15 @@ namespace OnlineShop.Controllers
             return View();
         }
 
+        public ActionResult SignIn(string username, string password)
+        {
+            LoginRequest login = new LoginRequest();
+            login.Username = username;
+            login.Password = password;
+
+            return View(login);
+        }
+
         [HttpPost]
         public ActionResult SignIn(LoginRequest login)
         {

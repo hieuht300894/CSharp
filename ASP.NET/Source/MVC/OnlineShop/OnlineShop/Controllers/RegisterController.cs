@@ -18,6 +18,11 @@ namespace OnlineShop.Controllers
             return View();
         }
 
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult SignUp(RegisterRequest register)
         {
@@ -54,7 +59,7 @@ namespace OnlineShop.Controllers
 
                 if (Instance.CheckExist(register.Username))
                 {
-                    ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                    ModelState.AddModelError("", "Tài khoản đã tồn tại.");
                     return View("Index");
                 }
 
@@ -88,7 +93,7 @@ namespace OnlineShop.Controllers
                     Instance.RollbackTransaction();
                 }
 
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("SignIn", "Login", new { username = register.Username, password = register.Password });
             }
             return View("Index");
         }
