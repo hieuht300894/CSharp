@@ -17,7 +17,7 @@ namespace OnlineShop.Controllers
         {
             ViewBag.Title = "List all of products";
 
-            return View(Instance.GetRepository<eProduct>().GetProducts(1));
+            return View(Instance.GetRepository<eProduct>().GetItems(1));
         }
 
         public override ActionResult Detail(int? id)
@@ -44,11 +44,11 @@ namespace OnlineShop.Controllers
             return base.Delete(id);
         }
 
-        public ActionResult Pages(int page = 1)
+        public override ActionResult Pages(int page = 1)
         {
             ViewBag.Title = "List all of products";
 
-            return View("Index", Instance.GetRepository<eProduct>().GetProducts(page));
+            return View("Index", Instance.GetRepository<eProduct>().GetItems(page));
         }
     }
 }

@@ -1,6 +1,62 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+@model OnlineShop.Models.eProduct
 
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">@ViewBag.Title</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td style="width:20%">Code</td>
+                                    <td>@Model.Code</td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>@Model.Name</td>
+                                </tr>
+                                <tr>
+                                    <td>Color</td>
+                                    <td>@(Model.ColorHex + " - " + Model.ColorName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Unit</td>
+                                    <td>@(Model.UnitCode + " - " + Model.UnitName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Size</td>
+                                    <td>@Model.Size</td>
+                                </tr>
+                                <tr>
+                                    <td>Note</td>
+                                    <td>@Model.Note</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->

@@ -24,7 +24,8 @@
         $(document).ready(function () {
             $('#dataTables-example').DataTable({
                 responsive: true,
-                paging: false
+                paging: false,
+                info: false
             });
         });
     </script>
@@ -73,8 +74,8 @@
                                         <td>@item.Size</td>
                                         <td>@item.Note</td>
                                         <td style="width:23%; text-align:center">
-                                            <button class="btn btn-info">Chi tiết</button>
-                                            <button class="btn btn-success">Cập nhật</button>
+                                            <a href="@Url.Action("Detail",new { id=item.KeyID})" class="btn btn-info">Chi tiết</a>
+                                            <a href="@Url.Action("Edit",new { id=item.KeyID})" class="btn btn-success">Cập nhật</a>
                                             <button class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
@@ -82,7 +83,7 @@
                             }
                         </tbody>
                     </table>
-                    @Html.PagedListPager(Model, page => Url.Action("Pages", new { page }))
+                    <div>@Html.PagedListPager(Model, page => Url.Action("Pages", new { page }))</div>
                 </div>
                 <!-- /.panel-body -->
             </div>

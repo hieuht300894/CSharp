@@ -9,9 +9,5 @@ namespace OnlineShop
 {
     public static class clsProduct
     {
-        public static IEnumerable<eProduct> GetProducts(this Repository<eProduct> repository, int page)
-        {
-            return repository.GetAll().ToPagedList(page, clsGeneral.pageSize);
-        }
     }
 }

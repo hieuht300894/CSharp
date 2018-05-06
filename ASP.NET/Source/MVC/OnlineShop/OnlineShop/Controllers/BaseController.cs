@@ -20,15 +20,21 @@ namespace OnlineShop
             return View(Instance.GetRepository<T>().GetAll());
         }
 
+        public virtual ActionResult Pages(int page = 1)
+        {
+            return View("Index", Instance.GetRepository<T>().GetItems(page));
+        }
+
         public virtual ActionResult Detail(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
-            if (Instance.GetRepository<T>().FindItem(id.Value) == null)
+            T item = Instance.GetRepository<T>().FindItem(id.Value);
+            if (item == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
 
-            return View();
+            return View(item);
         }
 
         public virtual ActionResult Create()
@@ -41,10 +47,11 @@ namespace OnlineShop
             if (id == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
-            if (Instance.GetRepository<T>().FindItem(id.Value) == null)
+            T item = Instance.GetRepository<T>().FindItem(id.Value);
+            if (item == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
 
-            return View();
+            return View(item);
         }
 
         public virtual ActionResult Delete(int? id)

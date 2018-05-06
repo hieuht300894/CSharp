@@ -167,6 +167,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="BLL\clsFunction.cs" />
     <Compile Include="BLL\clsLogin.cs" />
     <Compile Include="BLL\clsProduct.cs" />
     <Compile Include="BLL\clsRegister.cs" />
