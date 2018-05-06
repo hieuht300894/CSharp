@@ -15,40 +15,33 @@ namespace OnlineShop.Controllers
 
         public override ActionResult Index()
         {
-            ViewBag.Title = "List all of products";
-
-            return View(Instance.GetRepository<eProduct>().GetItems(1));
+            return base.Index();
         }
 
         public override ActionResult Detail(int? id)
         {
-            ViewBag.Title = "Product detail";
             return base.Detail(id);
         }
 
         public override ActionResult Create()
         {
-            ViewBag.Title = "Create product";
+            ViewBag.Units = Instance.GetRepository<eUnit>().GetAll();
             return base.Create();
         }
 
         public override ActionResult Edit(int? id)
         {
-            ViewBag.Title = "Edit product";
             return base.Edit(id);
         }
 
         public override ActionResult Delete(int? id)
         {
-            ViewBag.Title = "Delete product";
             return base.Delete(id);
         }
 
-        public override ActionResult Pages(int page = 1)
+        public override ActionResult Pages(int? pageIndex)
         {
-            ViewBag.Title = "List all of products";
-
-            return View("Index", Instance.GetRepository<eProduct>().GetItems(page));
+            return base.Pages(pageIndex);
         }
     }
 }

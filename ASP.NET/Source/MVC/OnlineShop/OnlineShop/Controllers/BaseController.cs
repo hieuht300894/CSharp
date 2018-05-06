@@ -17,12 +17,15 @@ namespace OnlineShop
 
         public virtual ActionResult Index()
         {
-            return View(Instance.GetRepository<T>().GetAll());
+            return View(Instance.GetRepository<T>().GetItems(1));
         }
 
-        public virtual ActionResult Pages(int page = 1)
+        public virtual ActionResult Pages(int? pageIndex)
         {
-            return View("Index", Instance.GetRepository<T>().GetItems(page));
+            if (!pageIndex.HasValue || pageIndex == 0 || pageIndex == 1)
+                return RedirectToAction("Index");
+
+            return View("Index", Instance.GetRepository<T>().GetItems(pageIndex.Value));
         }
 
         public virtual ActionResult Detail(int? id)
@@ -39,7 +42,7 @@ namespace OnlineShop
 
         public virtual ActionResult Create()
         {
-            return View();
+            return View(new T());
         }
 
         public virtual ActionResult Edit(int? id)
