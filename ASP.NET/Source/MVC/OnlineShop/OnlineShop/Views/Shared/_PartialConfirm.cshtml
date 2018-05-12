@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Thông báo";
+    ViewBag.Content = "Vui lòng xác nhận?";
+}
+
+<!-- Modal Confirm -->
+<div id="modal_confirm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@ViewBag.Title</h4>
+            </div>
+            <div class="modal-body">
+                <p>@ViewBag.Content</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnConfirmYes" type="button" class="btn btn-default" data-dismiss="modal">Có</button>
+                <button id="btnConfirmNo" type="button" class="btn btn-default" data-dismiss="modal">Không</button>
+            </div>
+        </div>
+
+    </div>
+</div>

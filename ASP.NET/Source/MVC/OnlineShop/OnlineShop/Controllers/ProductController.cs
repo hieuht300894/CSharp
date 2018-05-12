@@ -1,4 +1,5 @@
-﻿using OnlineShop.Models;
+﻿using OnlineShop.BLL;
+using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace OnlineShop.Controllers
 
         public override ActionResult Index()
         {
+            ViewBag.Units = Instance.GetRepository<eUnit>().GetAllWithTitle();
             return base.Index();
         }
 
