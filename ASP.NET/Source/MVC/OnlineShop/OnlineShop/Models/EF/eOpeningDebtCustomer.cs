@@ -1,6 +1,7 @@
-﻿
+﻿using OnlineShop.Models.General;
+using OnlineShop.Models.Interface;
 
-namespace OnlineShop.Models
+namespace OnlineShop.Models.EF
 {
     public class eOpeningDebtCustomer : Master, ICustomer
     {

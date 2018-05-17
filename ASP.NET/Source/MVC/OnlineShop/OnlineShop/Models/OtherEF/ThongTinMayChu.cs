@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Models
+﻿namespace OnlineShop.Models.OtherEF
 {
     public class ThongTinMayChu
     {

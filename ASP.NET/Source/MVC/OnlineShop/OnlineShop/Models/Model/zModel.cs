@@ -1,9 +1,10 @@
 ﻿using OnlineShop.Models;
+using OnlineShop.Models.EF;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 
-namespace OnlineShop
+namespace OnlineShop.Models.Model
 {
     public class zModel : DbContext
     {

@@ -1,6 +1,6 @@
+using OnlineShop.Models.General;
 
-
-namespace OnlineShop.Models
+namespace OnlineShop.Models.EF
 {
     public partial class xConfiguration : Master
     {

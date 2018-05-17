@@ -1,6 +1,7 @@
-﻿using System;
+﻿using OnlineShop.Models.Interface;
+using System;
 
-namespace OnlineShop.Models
+namespace OnlineShop.Models.General
 {
     public class Master : IEF, IMaster
     {

@@ -1,7 +1,8 @@
-﻿
+﻿using OnlineShop.Models.General;
+using OnlineShop.Models.Interface;
 using System;
 
-namespace OnlineShop.Models
+namespace OnlineShop.Models.EF
 {
     public class eDebtProvider : Master, IProvider
     {

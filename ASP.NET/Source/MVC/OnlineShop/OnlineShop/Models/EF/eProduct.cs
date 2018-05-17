@@ -1,4 +1,7 @@
-﻿namespace OnlineShop.Models
+﻿using OnlineShop.Models.General;
+using OnlineShop.Models.Interface;
+
+namespace OnlineShop.Models.EF
 {
     public class eProduct : Master, IUnit
     {

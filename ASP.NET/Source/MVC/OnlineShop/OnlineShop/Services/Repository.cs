@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShop.Models.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;

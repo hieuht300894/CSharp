@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Models
+﻿using OnlineShop.Models.EF;
+
+namespace OnlineShop.Models.OtherEF
 {
     public class ThongTinNguoiDung
     {

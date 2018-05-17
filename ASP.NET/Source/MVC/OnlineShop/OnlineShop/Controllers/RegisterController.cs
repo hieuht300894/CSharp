@@ -1,5 +1,7 @@
 ﻿using OnlineShop.BLL;
 using OnlineShop.Models;
+using OnlineShop.Models.EF;
+using OnlineShop.Models.OtherEF;
 using System;
 using System.Collections.Generic;
 using System.Linq;

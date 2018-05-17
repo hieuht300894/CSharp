@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OnlineShop.Models
+namespace OnlineShop.Models.Interface
 {
     public interface IEF
     {
