@@ -239,6 +239,8 @@
     <Compile Include="Services\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Admin\custom\jsDefaultValue.js" />
+    <Content Include="Assets\Admin\custom\jsFunction.js" />
     <Content Include="Assets\Admin\custom\jsModal.js" />
     <Content Include="Assets\Admin\custom\jsProduct.js" />
     <Content Include="Assets\Admin\data\flot-data.js" />
