@@ -13,6 +13,7 @@ namespace OnlineShop
     {
         protected void Application_Start()
         {
+            JsonConfig.JsonFormat();
             DatabaseConfig.GetConnectionString();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

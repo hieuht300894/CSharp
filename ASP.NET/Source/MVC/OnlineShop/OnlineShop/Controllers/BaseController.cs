@@ -1,4 +1,5 @@
-﻿using OnlineShop.BLL;
+﻿using Newtonsoft.Json;
+using OnlineShop.BLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -192,25 +193,73 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public virtual ActionResult CreateItem(T item)
         {
-            return Ok(item);
+            try
+            {
+                Instance.BeginTransaction();
+                Instance.GetRepository<T>().AddOrUpdate(item);
+                Instance.SaveChanges();
+                Instance.CommitTransaction();
+                return Ok(item);
+            }
+            catch (Exception ex)
+            {
+                Instance.RollbackTransaction();
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost]
         public virtual ActionResult CreateItems(T[] items)
         {
-            return View();
+            try
+            {
+                Instance.BeginTransaction();
+                Instance.GetRepository<T>().AddOrUpdate(items);
+                Instance.SaveChanges();
+                Instance.CommitTransaction();
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                Instance.RollbackTransaction();
+                return BadRequest(ex);
+            }
         }
 
         [HttpPut]
         public virtual ActionResult EditItem(T item)
         {
-            return View();
+            try
+            {
+                Instance.BeginTransaction();
+                Instance.GetRepository<T>().AddOrUpdate(item);
+                Instance.SaveChanges();
+                Instance.CommitTransaction();
+                return Ok(item);
+            }
+            catch (Exception ex)
+            {
+                Instance.RollbackTransaction();
+                return BadRequest(ex);
+            }
         }
 
         [HttpPut]
         public virtual ActionResult EditItems(T[] items)
         {
-            return View();
+            try
+            {
+                Instance.BeginTransaction();
+                Instance.GetRepository<T>().AddOrUpdate(items);
+                Instance.SaveChanges();
+                Instance.CommitTransaction();
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                Instance.RollbackTransaction();
+                return BadRequest(ex);
+            }
         }
 
         [HttpDelete]

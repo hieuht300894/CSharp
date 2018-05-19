@@ -9,5 +9,7 @@
     Insert: 1,
     Update: 2,
     Delete: 3,
-    Now: function () { return new Date(); }
+    OK: 200,
+    BadRequest: 400,
+    NoContent: 204
 };
