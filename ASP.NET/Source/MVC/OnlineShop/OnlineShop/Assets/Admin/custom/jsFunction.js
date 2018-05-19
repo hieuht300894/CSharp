@@ -1,12 +1,8 @@
 ﻿var defaultFunction = {
     SaveData: function (url, type, data) {
-        console.log(url);
-        console.log(type);
-        console.log(data);
-        console.log(JSON.stringify(data));
         $.ajax({
             url: url,
-            data: JSON.stringify(data),
+            data: data,
             type: type,
             dataType: defaultValue.Json_Type,
             contentType: defaultValue.Json_ContentType,
@@ -14,5 +10,20 @@
                 console.log(result);
             }
         });
+    },
+    GetData: function (url, type, data) {
+        var item = {};
+        $.ajax({
+            url: url,
+            data: data,
+            type: type,
+            dataType: defaultValue.Json_Type,
+            contentType: defaultValue.Json_ContentType,
+            async: false,
+            success: function (result) {
+                item = result;
+            }
+        });
+        return item;
     }
-}
+};

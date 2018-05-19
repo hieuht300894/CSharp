@@ -17,6 +17,7 @@ namespace OnlineShop.Controllers
 
         public override ActionResult Index()
         {
+            ViewBag.Product = Ok(new eProduct());
             ViewBag.Units = Instance.GetRepository<eUnit>().GetAllWithTitle();
             return base.Index();
         }

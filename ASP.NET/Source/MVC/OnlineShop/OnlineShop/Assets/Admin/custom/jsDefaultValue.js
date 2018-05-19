@@ -6,17 +6,8 @@
     Post: 'post',
     Put: 'put',
     Delete: 'delete',
-    Now: function () {
-        var date = new Date();
-        var day = date.getDate();       // yields date
-        var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
-        var year = date.getFullYear();  // yields year
-        var hour = date.getHours();     // yields hours 
-        var minute = date.getMinutes(); // yields minutes
-        var second = date.getSeconds(); // yields seconds
-
-        // After this construct a string with the above results as below
-        //return year + "-" + month + "-" + day + " " + hour + ':' + minute + ':' + second;
-        return date;
-    }
+    Insert: 1,
+    Update: 2,
+    Delete: 3,
+    Now: function () { return new Date(); }
 };

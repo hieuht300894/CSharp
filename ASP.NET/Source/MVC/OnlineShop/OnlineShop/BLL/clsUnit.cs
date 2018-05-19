@@ -12,7 +12,7 @@ namespace OnlineShop.BLL
         public static IEnumerable<eUnit> GetAllWithTitle(this Repository<eUnit> repository, string msg = "[-----Tất cả-----]")
         {
             List<eUnit> lstItems = repository.GetAll();
-            lstItems.Insert(0, new eUnit() { Name = msg });
+            lstItems.Insert(0, new eUnit() { KeyID = 0, Name = msg });
             return lstItems;
         }
     }
