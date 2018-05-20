@@ -37,92 +37,82 @@
     </script>
 }
 
-<!-- Modal Edit -->
+<!-- Modal Editor -->
 <div id="modal-editor" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" style="text-align:center">Thông tin sản phẩm</h4>
+                <h4 class="modal-title" style="text-align:center" id="lbTitle">Thông tin sản phẩm</h4>
             </div>
-        
+
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12">
                         <form class="form">
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" id="group_code">
-                                        <div class="col-md-3">
-                                            @Html.Label("Code", "Mã", new { @class = "form-control", @style = "border:none; box-shadow:none" })
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="tooltip-message">
-                                                @Html.TextBox("Code", "", new { @class = "form-control", @data_toggle = "tooltip", @data_placement = "left", @title = "", @data_original_title = "" })
-                                            </div>
-                                        </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label id="lbCode" class="control-label">Mã</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tooltip-message">
+                                    <div class="form-group">
+                                        <input type="text" id="txtCode" name="Code" class="form-control" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" id="group_name">
-                                        <div class="col-md-3">
-                                            @Html.Label("Name", "Tên", new { @class = "form-control", @style = "border:none; box-shadow:none" })
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="tooltip-message">
-                                                @Html.TextBox("Name", "", new { @class = "form-control", @data_toggle = "tooltip", @data_placement = "left", @title = "", @data_original_title = "" })
-                                            </div>
-                                        </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label id="lbName" class="control-label">Tên</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tooltip-message">
+                                    <div class="form-group">
+                                        <input type="text" id="txtName" name="Name" class="form-control" data-toggle="tooltip" data-placement="left" title="" data-original-title="" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" id="group_unit">
-                                        <div class="col-md-3">
-                                            @Html.Label("Unit", "ĐVT", new { @class = "form-control", @style = "border:none; box-shadow:none" })
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="tooltip-message">
-                                                @Html.DropDownList("IDUnit", new SelectList(ViewBag.Units, "KeyID", "Name"), new { @class = "form-control", @data_toggle = "tooltip", @data_placement = "left", @title = "", @data_original_title = "" })
-                                            </div>
-                                        </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label id="lbUnit" class="control-label">ĐVT</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tooltip-message">
+                                    <div class="form-group">
+                                        @Html.DropDownList("IDUnit", new SelectList(ViewBag.Units, "KeyID", "Name"), new { @id = "lokUnit", @class = "form-control", @data_toggle = "tooltip", @data_placement = "left", @title = "", @data_original_title = "" })
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" id="group_name">
-                                        <div class="col-md-3">
-                                            @Html.Label("Size", "Kích thước", new { @class = "form-control", @style = "border:none; box-shadow:none" })
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="tooltip-message">
-                                                @Html.TextBox("Size", "", new { @class = "form-control", @data_toggle = "tooltip", @data_placement = "left", @title = "", @data_original_title = "" })
-                                            </div>
-                                        </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label id="lbSize" class="control-label">Kích thước</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tooltip-message">
+                                    <div class="form-group">
+                                        <input type="text" id="txtSize" name="Size" class="form-control" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" id="group_note">
-                                        <div class="col-md-3">
-                                            @Html.Label("Note", "Ghi chú", new { @class = "form-control", @style = "border:none; box-shadow:none" })
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="tooltip-message">
-                                                @Html.TextArea("Note", "", new { @class = "form-control" })
-                                            </div>
-                                        </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label id="lbNote" class="control-label">Ghi chú</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tooltip-message">
+                                    <div class="form-group">
+                                        <textarea id="txtNote" name="Note" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -132,14 +122,23 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btnSave" type="button" class="btn btn-default">Lưu</button>
-                <button id="btnSaveAndNew" type="button" class="btn btn-default">Lưu và tạo mới</button>
-                <button id="btnClose" type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="text-align:left">
+                            <label id="lbMessage" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <a id="btnSave" class="btn btn-default">Lưu</a>
+                        <a id="btnSaveAndNew" class="btn btn-default">Lưu và tạo mới</a>
+                        <a id="btnClose" class="btn btn-default" data-dismiss="modal">Đóng</a>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
-</div>*
+</div>
 
 <!-- Page Content -->
 <div id="page-wrapper">
@@ -161,7 +160,7 @@
                         <div class="col-md-12">
                             @*<a href="@Url.Action("Create")" class="btn btn-primary">Add new</a>*@
                             <!-- Trigger the modal with a button -->
-                            <a class="btn btn-primary" data-toggle="modal" data-target="#modal-editor" data-id="btnAdd">Thêm mới</a>
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#modal-editor" id="btnAdd">Thêm mới</a>
                         </div>
                     </div>
                 </div>
@@ -195,9 +194,9 @@
                                         <td>@item.Size</td>
                                         <td>@item.Note</td>
                                         <td style="width:23%; text-align:center">
-                                            <a href="#" class="btn btn-info" data-id="btnDetail" data->Chi tiết</a>
-                                            <a href="#" class="btn btn-success" data-id="btnEdit" data-toggle="modal" data-target="#modal-editor" data-row="@index">Sửa</a>
-                                            <a href="#" class="btn btn-danger" data-id="btnDelete">Xóa</a>
+                                            <a class="btn btn-info" data-id="btnDetail" data->Chi tiết</a>
+                                            <a class="btn btn-success" data-id="btnEdit" data-toggle="modal" data-target="#modal-editor" data-row="@index">Sửa</a>
+                                            <a class="btn btn-danger" data-id="btnDelete">Xóa</a>
                                         </td>
                                     </tr>
 

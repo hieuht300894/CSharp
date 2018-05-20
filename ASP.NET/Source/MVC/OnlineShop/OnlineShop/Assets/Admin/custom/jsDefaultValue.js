@@ -11,5 +11,7 @@
     Delete: 3,
     OK: 200,
     BadRequest: 400,
-    NoContent: 204
+    NoContent: 204,
+    MessageSuccess: 'Lưu dữ liệu thành công.',
+    MessageFail: 'Lưu dữ liệu không thành công. Vui lòng thử lại.'
 };
