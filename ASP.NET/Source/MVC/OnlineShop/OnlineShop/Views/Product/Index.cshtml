@@ -99,6 +99,21 @@
 
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="form-group" id="group_name">
+                                        <div class="col-md-3">
+                                            @Html.Label("Size", "Kích thước", new { @class = "form-control", @style = "border:none; box-shadow:none" })
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="tooltip-message">
+                                                @Html.TextBox("Size", "", new { @class = "form-control", @data_toggle = "tooltip", @data_placement = "left", @title = "", @data_original_title = "" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group" id="group_note">
                                         <div class="col-md-3">
                                             @Html.Label("Note", "Ghi chú", new { @class = "form-control", @style = "border:none; box-shadow:none" })

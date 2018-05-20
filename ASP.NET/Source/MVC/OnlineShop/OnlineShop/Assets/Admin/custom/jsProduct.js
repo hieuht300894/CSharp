@@ -6,6 +6,7 @@ var btnEdit = document.querySelectorAll('a[data-id=btnEdit]');
 var btnDelete = document.querySelectorAll('a[data-id=btnDelete]');
 var txtCode = document.querySelector('input[id=Code]');
 var txtName = document.querySelector('input[id=Name]');
+var txtSize = document.querySelector('input[id=Size]');
 var lokUnit = document.querySelector('select[id=IDUnit]');
 var txtNote = document.querySelector('textarea[id=Note]');
 var lbTitle = document.querySelector('h4[class=modal-title]');
@@ -13,32 +14,36 @@ var groupCode = document.getElementById('group_code');
 var groupName = document.getElementById('group_name');
 var groupUnit = document.getElementById('group_unit');
 var _iEntry = {};
+var _aEntry = {};
 
 if (btnSave) {
     $(btnSave).off(defaultValue.Click).on(defaultValue.Click, async function (e) {
         e.preventDefault();
         if (ValidData()) {
             var jsonResult;
-            _iEntry.Name = $(txtName).val();
-            _iEntry.IDUnit = $(lokUnit).val();
-            _iEntry.Note = $(txtNote).val();
-            if (_iEntry.KeyID > 0) {
-                _iEntry.CreatedDate = defaultFunction.ParseDateTime(_iEntry.CreatedDate);
-                _iEntry.ModifiedDate = defaultFunction.Now();
-                _iEntry.ModifiedBy = 0;
-                _iEntry.Status = defaultValue.Update;
-                jsonResult = await defaultFunction.SaveData('Product/EditItem', defaultValue.Put, JSON.stringify(_iEntry));
+            _aEntry = _iEntry;
+            _aEntry.Name = $(txtName).val();
+            _aEntry.IDUnit = $(lokUnit).val();
+            _aEntry.Note = $(txtNote).val();
+            _aEntry.Size = $(txtSize).val();
+            if (_aEntry.KeyID > 0) {
+                _aEntry.CreatedDate = defaultFunction.ParseDateTime(_aEntry.CreatedDate);
+                _aEntry.ModifiedDate = defaultFunction.Now();
+                _aEntry.ModifiedBy = 0;
+                _aEntry.Status = defaultValue.Update;
+                jsonResult = await defaultFunction.SaveData('Product/EditItem', defaultValue.Put, JSON.stringify({ OldData: _iEntry, NewData: _aEntry, Status: defaultValue.Update }));
             }
             else {
-                _iEntry.Code = $(txtCode).val();
-                _iEntry.CreatedDate = defaultFunction.Now();
-                _iEntry.CreatedBy = 0;
-                _iEntry.Status = defaultValue.Insert;
-                jsonResult = await defaultFunction.SaveData('Product/CreateItem', defaultValue.Post, JSON.stringify(_iEntry));
+                _aEntry.Code = $(txtCode).val();
+                _aEntry.CreatedDate = defaultFunction.Now();
+                _aEntry.CreatedBy = 0;
+                _aEntry.Status = defaultValue.Insert;
+                jsonResult = await defaultFunction.SaveData('Product/CreateItem', defaultValue.Post, JSON.stringify({ OldData: _iEntry, NewData: _aEntry, Status: defaultValue.Insert }));
             }
 
             if (jsonResult.StatusCode == defaultValue.OK && jsonResult.Data) {
-                _iEntry.KeyID = jsonResult.Data.KeyID;
+                _iEntry = jsonResult.Data;
+                _aEntry = jsonResult.Data;
                 $(lbTitle).text('Cập nhật sản phẩm');
             }
             else {
@@ -52,23 +57,24 @@ if (btnSaveAndNew) {
     $(btnSaveAndNew).off(defaultValue.Click).on(defaultValue.Click, async function (e) {
         e.preventDefault();
         if (ValidData()) {
-            var jsonResult;
-            _iEntry.Name = $(txtName).val();
-            _iEntry.IDUnit = $(lokUnit).val();
-            _iEntry.Note = $(txtNote).val();
-            if (_iEntry.KeyID > 0) {
-                _iEntry.CreatedDate = defaultFunction.ParseDateTime(_iEntry.CreatedDate);
-                _iEntry.ModifiedDate = defaultFunction.Now();
-                _iEntry.ModifiedBy = 0;
-                _iEntry.Status = defaultValue.Update;
-                jsonResult = await defaultFunction.SaveData('Product/EditItem', defaultValue.Put, JSON.stringify(_iEntry));
+            _aEntry = _iEntry;
+            _aEntry.Name = $(txtName).val();
+            _aEntry.IDUnit = $(lokUnit).val();
+            _aEntry.Note = $(txtNote).val();
+            _aEntry.Size = $(txtSize).val();
+            if (_aEntry.KeyID > 0) {
+                _aEntry.CreatedDate = defaultFunction.ParseDateTime(_aEntry.CreatedDate);
+                _aEntry.ModifiedDate = defaultFunction.Now();
+                _aEntry.ModifiedBy = 0;
+                _aEntry.Status = defaultValue.Update;
+                jsonResult = await defaultFunction.SaveData('Product/EditItem', defaultValue.Put, JSON.stringify({ OldData: _iEntry, NewData: _aEntry, Status: defaultValue.Update }));
             }
             else {
-                _iEntry.Code = $(txtCode).val();
-                _iEntry.CreatedDate = defaultFunction.Now();
-                _iEntry.CreatedBy = 0;
-                _iEntry.Status = defaultValue.Insert;
-                jsonResult = await defaultFunction.SaveData('Product/CreateItem', defaultValue.Post, JSON.stringify(_iEntry));
+                _aEntry.Code = $(txtCode).val();
+                _aEntry.CreatedDate = defaultFunction.Now();
+                _aEntry.CreatedBy = 0;
+                _aEntry.Status = defaultValue.Insert;
+                jsonResult = await defaultFunction.SaveData('Product/CreateItem', defaultValue.Post, JSON.stringify({ OldData: _iEntry, NewData: _aEntry, Status: defaultValue.Insert }));
             }
 
             if (jsonResult.StatusCode == defaultValue.OK && jsonResult.Data) {
@@ -108,6 +114,7 @@ async function InsertItem() {
         $(txtName).val(_iEntry.Name);
         $(lokUnit).val(_iEntry.IDUnit);
         $(txtNote).val(_iEntry.Note);
+        $(txtSize).val(_iEntry.Size);
     }
     else {
         //console.log(jsonResult.Message);
@@ -129,6 +136,7 @@ async function UpdateItem(_btnEdit) {
         $(txtName).val(_iEntry.Name);
         $(lokUnit).val(_iEntry.IDUnit);
         $(txtNote).val(_iEntry.Note);
+        $(txtSize).val(_iEntry.Size);
     }
     else {
         //console.log(jsonResult.Message);

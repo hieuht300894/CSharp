@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OnlineShop.BLL;
+using OnlineShop.Models.OtherEF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,9 +70,10 @@ namespace OnlineShop.Controllers
 
         public JsonResult BadRequest(Exception exception)
         {
-            ModelStateDictionary modelState = new ModelStateDictionary();
-            modelState.AddModelError("Exception", exception);
-            return new CustomJsonResult(HttpStatusCode.BadRequest, modelState);
+            //ModelStateDictionary modelState = new ModelStateDictionary();
+            //modelState.AddModelError("Exception", exception);
+            //return new CustomJsonResult(HttpStatusCode.BadRequest, modelState);
+            return new CustomJsonResult(HttpStatusCode.BadRequest, exception.Message);
         }
     }
     public class CustomJsonResult : JsonResult
@@ -191,15 +193,15 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult CreateItem(T item)
+        public virtual ActionResult CreateItem(DataRequest<T> data)
         {
             try
             {
                 Instance.BeginTransaction();
-                Instance.GetRepository<T>().AddOrUpdate(item);
+                Instance.GetRepository<T>().AddOrUpdate(data.NewData);
                 Instance.SaveChanges();
                 Instance.CommitTransaction();
-                return Ok(item);
+                return Ok(data.NewData);
             }
             catch (Exception ex)
             {
@@ -209,15 +211,15 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult CreateItems(T[] items)
+        public virtual ActionResult CreateItems(DataRequest<T>[] datas)
         {
             try
             {
                 Instance.BeginTransaction();
-                Instance.GetRepository<T>().AddOrUpdate(items);
+                Instance.GetRepository<T>().AddOrUpdate(datas.Select(x => x.NewData).ToArray());
                 Instance.SaveChanges();
                 Instance.CommitTransaction();
-                return Ok(items);
+                return Ok(datas.Select(x => x.NewData).ToArray());
             }
             catch (Exception ex)
             {
@@ -227,15 +229,15 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPut]
-        public virtual ActionResult EditItem(T item)
+        public virtual ActionResult EditItem(DataRequest<T> data)
         {
             try
             {
                 Instance.BeginTransaction();
-                Instance.GetRepository<T>().AddOrUpdate(item);
+                Instance.GetRepository<T>().AddOrUpdate(data.NewData);
                 Instance.SaveChanges();
                 Instance.CommitTransaction();
-                return Ok(item);
+                return Ok(data.NewData);
             }
             catch (Exception ex)
             {
@@ -245,15 +247,15 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPut]
-        public virtual ActionResult EditItems(T[] items)
+        public virtual ActionResult EditItems(DataRequest<T>[] datas)
         {
             try
             {
                 Instance.BeginTransaction();
-                Instance.GetRepository<T>().AddOrUpdate(items);
+                Instance.GetRepository<T>().AddOrUpdate(datas.Select(x => x.NewData).ToArray());
                 Instance.SaveChanges();
                 Instance.CommitTransaction();
-                return Ok(items);
+                return Ok(datas.Select(x => x.NewData).ToArray());
             }
             catch (Exception ex)
             {

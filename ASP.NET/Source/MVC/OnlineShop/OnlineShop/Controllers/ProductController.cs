@@ -1,6 +1,7 @@
 ﻿using OnlineShop.BLL;
 using OnlineShop.Models;
 using OnlineShop.Models.EF;
+using OnlineShop.Models.OtherEF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,25 @@ namespace OnlineShop.Controllers
         public override ActionResult Pages(int? pageIndex)
         {
             return base.Pages(pageIndex);
+        }
+
+        public override ActionResult CreateItem(DataRequest<eProduct> data)
+        {
+            eUnit unit = Instance.GetRepository<eUnit>().FindItem(data.NewData.IDUnit) ?? new eUnit();
+            data.NewData.UnitCode = unit.Code;
+            data.NewData.UnitName = unit.Name;
+            return base.CreateItem(data);
+        }
+
+        public override ActionResult EditItem(DataRequest<eProduct> data)
+        {
+            if (data.NewData.IDUnit != data.OldData.IDUnit)
+            {
+                eUnit unit = Instance.GetRepository<eUnit>().FindItem(data.NewData.IDUnit) ?? new eUnit();
+                data.NewData.UnitCode = unit.Code;
+                data.NewData.UnitName = unit.Name;
+            }
+            return base.EditItem(data);
         }
     }
 }

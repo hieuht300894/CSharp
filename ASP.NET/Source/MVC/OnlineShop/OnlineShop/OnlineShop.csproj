@@ -222,6 +222,7 @@
     <Compile Include="Models\Interface\IEF.cs" />
     <Compile Include="Models\Model\aModel.cs" />
     <Compile Include="Models\Model\zModel.cs" />
+    <Compile Include="Models\OtherEF\DataRequest.cs" />
     <Compile Include="Models\OtherEF\LoginRequest.cs" />
     <Compile Include="Models\OtherEF\RegisterRequest.cs" />
     <Compile Include="Models\OtherEF\ThongTinMayChu.cs" />
