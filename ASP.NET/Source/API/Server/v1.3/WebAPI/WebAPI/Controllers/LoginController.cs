@@ -1,4 +1,7 @@
-﻿using WebAPI.Models.EF;
+﻿using System.Web.Http;
+using WebAPI.BLL;
+using WebAPI.Models.EF;
+using WebAPI.Models.OtherEF;
 
 namespace WebAPI.Controllers
 {
@@ -8,54 +11,45 @@ namespace WebAPI.Controllers
         {
         }
 
-        //public ActionResult SignIn(string username, string password)
-        //{
-        //    LoginRequest login = new LoginRequest();
-        //    login.Username = username;
-        //    login.Password = password;
+        [HttpPost]
+        public IHttpActionResult SignIn(LoginRequest login)
+        {
+            bool IsValid = true;
 
-        //    return View(login);
-        //}
+            if (login == null)
+            {
+                ModelState.AddModelError("", "Đăng nhập không thành công.");
+                IsValid = false;
+            }
+            if (login.Username.IsEmpty())
+            {
+                ModelState.AddModelError(nameof(login.Username), "Vui lòng nhập tài khoản.");
+                IsValid = false;
+            }
+            if (login.Password.IsEmpty())
+            {
+                ModelState.AddModelError(nameof(login.Password), "Vui lòng nhập mật khẩu.");
+                IsValid = false;
+            }
 
-        //[HttpPost]
-        //public ActionResult SignIn(LoginRequest login)
-        //{
-        //    bool IsValid = true;
-
-        //    if (login == null)
-        //    {
-        //        ModelState.AddModelError("", "Đăng nhập không thành công.");
-        //        IsValid = false;
-        //    }
-        //    if (login.Username.IsEmpty())
-        //    {
-        //        ModelState.AddModelError(nameof(login.Username), "Vui lòng nhập tài khoản.");
-        //        IsValid = false;
-        //    }
-        //    if (login.Password.IsEmpty())
-        //    {
-        //        ModelState.AddModelError(nameof(login.Password), "Vui lòng nhập mật khẩu.");
-        //        IsValid = false;
-        //    }
-
-        //    if (IsValid)
-        //    {
-        //        clsEnum.fLogin res = Instance.CheckLogin(login.Username, login.Password);
-        //        switch (res)
-        //        {
-        //            case clsEnum.fLogin.NotFound:
-        //                ModelState.AddModelError("", "Tài khoản không tồn tại.");
-        //                goto default;
-        //            case clsEnum.fLogin.Disable:
-        //                ModelState.AddModelError("", "Tài khoản đã bị khóa.");
-        //                goto default;
-        //            case clsEnum.fLogin.Success:
-        //                return RedirectToAction("Index", "Home");
-        //            default:
-        //                return View("Index");
-        //        }
-        //    }
-        //    return View("Index");
-        //}
+            if (IsValid)
+            {
+                clsEnum.fLogin res = Instance.CheckLogin(login.Username, login.Password);
+                switch (res)
+                {
+                    case clsEnum.fLogin.NotFound:
+                        ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                        goto default;
+                    case clsEnum.fLogin.Disable:
+                        ModelState.AddModelError("", "Tài khoản đã bị khóa.");
+                        goto default;
+                    case clsEnum.fLogin.Success:
+                        return Ok();
+                    default:
+                        return BadRequest(ModelState);
+                }
+            }
+            return BadRequest(ModelState);
+        }
     }
 }
